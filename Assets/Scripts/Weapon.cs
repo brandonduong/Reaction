@@ -97,7 +97,7 @@ public class Weapon : MonoBehaviour
         GameObject bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
         // Change diirection of bullet to down
-        bullet.GetComponent<Bullet>().direction = Vector2.right;
+        bullet.GetComponent<Bullet>().direction = transform.right;
         recoil = true;
 
         // Recoil backward

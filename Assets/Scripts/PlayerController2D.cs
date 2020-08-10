@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class PlayerController2D: MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class PlayerController2D: MonoBehaviour
     public BoolEvent OnCrouchEvent;
     private bool m_wasCrouching = false;
 
+    // If ground check point collides with any of these, don't count as grounded
+    [SerializeField] private string[] ignoreForGroundedCheck;
+
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -53,7 +57,7 @@ public class PlayerController2D: MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject != gameObject)
+            if (colliders[i].gameObject != gameObject && !ignoreForGroundedCheck.Contains(colliders[i].tag))
             {
                 m_Grounded = true;
                 if (!wasGrounded)
