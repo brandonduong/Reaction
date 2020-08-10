@@ -137,7 +137,14 @@ public class Weapon : MonoBehaviour
 
         // Recoil backward
         recoilDirection = transform.up;
+        
+        // Reset y velocity to be 0
+        rb.velocity = new Vector2(rb.velocity.x, 0); ;
         recoilForce = recoilForceDownward;
+
+        // Fail safe
+        controller.m_Grounded = false;
+
         dampenedRecoil = recoilForce;
 
         // Camera shake

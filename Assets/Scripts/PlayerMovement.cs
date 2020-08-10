@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float runSpeed = 40;
     float horizontalMovement = 0;
-    bool jump = false;
+    public bool jump = false;
     bool crouch = false;
 
     // Update is called once per frame (used for getting input)
