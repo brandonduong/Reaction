@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     private float fireCounter = 0f;
 
     public int maxAmmo = 2;
-    private int currentAmmo;
+    public int currentAmmo;
 
     private bool fireForward = false;
     private bool fireDownward = false;
@@ -28,6 +28,10 @@ public class Weapon : MonoBehaviour
     private bool recoil = false;
     private float recoilCounter = 0f;
     private Vector2 recoilDirection;
+
+    // Delay for how long after shooting a bullet will a reload be able to occur
+    public float reloadDelay = 0.5f;
+    private bool reloadAvailable = false; // True if player lands on ground after shooting
 
     private void Start()
     {
@@ -47,6 +51,7 @@ public class Weapon : MonoBehaviour
                 fireForward = true;
                 fireCounter = 1.0f;
                 currentAmmo -= 1;
+                reloadDelay = 1f;
             }
 
             else if (Input.GetButtonDown("Fire2"))
@@ -54,6 +59,7 @@ public class Weapon : MonoBehaviour
                 fireDownward = true;
                 fireCounter = 1.0f;
                 currentAmmo -= 1;
+                reloadDelay = 1f;
             }
         }
         
@@ -64,10 +70,29 @@ public class Weapon : MonoBehaviour
             fireCounter -= Time.deltaTime * fireRate;
         }
 
-        // Reload gun if player is on the ground
-        if (controller.m_Grounded)
+        // If on ground, trigger flag to be able to reload
+        if (controller.m_Grounded && fireCounter <= 0f)
         {
-            currentAmmo = 2;
+            reloadAvailable = true;
+        }
+
+        // If fired recently, reset reload delays
+        else if (fireCounter >= 0f)
+        {
+            reloadAvailable = false;
+            reloadDelay = 1f;
+        }
+
+        // Tick down to actually reload
+        if (reloadAvailable)
+        {
+            reloadDelay -= Time.deltaTime;
+        }
+
+        // Actually reload after not shooting for a small delay
+        if (reloadDelay <= 0f)
+        {
+            Reload();
         }
     }
 
@@ -121,7 +146,7 @@ public class Weapon : MonoBehaviour
         dampenedRecoil = recoilForce;
     }
 
-    void Recoil()
+    private void Recoil()
     {
         if (recoilCounter <= 0f)
         {
@@ -154,5 +179,10 @@ public class Weapon : MonoBehaviour
         {
             recoilCounter -= Time.deltaTime * recoilTime;
         }
+    }
+
+    private void Reload()
+    {
+        currentAmmo = maxAmmo;
     }
 }
