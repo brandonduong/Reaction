@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,8 +30,6 @@ public class Weapon : MonoBehaviour
     private float recoilCounter = 0f;
     private Vector2 recoilDirection;
 
-    // Delay for how long after shooting a bullet will a reload be able to occur
-    public float reloadDelay = 0.5f;
     private bool reloadAvailable = false; // True if player lands on ground after shooting
 
     private void Start()
@@ -49,17 +48,17 @@ public class Weapon : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 fireForward = true;
-                fireCounter = 1.0f;
-                currentAmmo -= 1;
-                reloadDelay = 1f;
             }
 
             else if (Input.GetButtonDown("Fire2"))
             {
                 fireDownward = true;
+            }
+
+            if (fireForward || fireDownward)
+            {
                 fireCounter = 1.0f;
                 currentAmmo -= 1;
-                reloadDelay = 1f;
             }
         }
         
@@ -76,21 +75,14 @@ public class Weapon : MonoBehaviour
             reloadAvailable = true;
         }
 
-        // If fired recently, reset reload delays
+        // If fired recently, reset reload
         else if (fireCounter >= 0f)
         {
             reloadAvailable = false;
-            reloadDelay = 1f;
-        }
-
-        // Tick down to actually reload
-        if (reloadAvailable)
-        {
-            reloadDelay -= Time.deltaTime;
         }
 
         // Actually reload after not shooting for a small delay
-        if (reloadDelay <= 0f)
+        if (reloadAvailable)
         {
             Reload();
         }
@@ -129,6 +121,9 @@ public class Weapon : MonoBehaviour
         recoilDirection = -transform.right;
         recoilForce = recoilForceForward;
         dampenedRecoil = recoilForce;
+
+        // Camera shake
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
     }
 
     void ShootDownward()
@@ -144,6 +139,9 @@ public class Weapon : MonoBehaviour
         recoilDirection = transform.up;
         recoilForce = recoilForceDownward;
         dampenedRecoil = recoilForce;
+
+        // Camera shake
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
     }
 
     private void Recoil()
