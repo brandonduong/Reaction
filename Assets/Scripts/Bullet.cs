@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.tag != "Player")
         {
-            Debug.Log(collision.name);
+            // Debug.Log(collision.name);
 
             // If collision object is breakable, reduce health
             Breakable breakable = collision.GetComponent<Breakable>();
