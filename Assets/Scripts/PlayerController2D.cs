@@ -59,6 +59,7 @@ public class PlayerController2D: MonoBehaviour
         {
             if (colliders[i].gameObject != gameObject && !ignoreForGroundedCheck.Contains(colliders[i].tag))
             {
+                // Debug.Log(colliders[i].gameObject.ToString() + "grounded the player.");
                 m_Grounded = true;
                 if (!wasGrounded)
                     OnLandEvent.Invoke();

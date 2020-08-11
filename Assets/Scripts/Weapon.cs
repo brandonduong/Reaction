@@ -11,8 +11,9 @@ public class Weapon : MonoBehaviour
     private PlayerController2D controller;
 
     private Vector2 recoilForce = Vector2.zero;
-    public Vector2 recoilForceForward;
-    public Vector2 recoilForceDownward;
+    public Vector2 recoilForceForward; // Recoil when shooting forward
+    public Vector2 recoilForceDownward; // Recoil when shooting downward
+    public Vector2 recoilForceUpward; // Recoil when shooting upward
 
     private Vector2 dampenedRecoil;
 
@@ -24,6 +25,7 @@ public class Weapon : MonoBehaviour
 
     private bool fireForward = false;
     private bool fireDownward = false;
+    private bool fireUpward = false;
 
     public float recoilTime = 5.0f;
     private bool recoil = false;
@@ -55,8 +57,14 @@ public class Weapon : MonoBehaviour
                 fireDownward = true;
             }
 
-            if (fireForward || fireDownward)
+            else if (Input.GetButtonDown("Fire3"))
             {
+                fireUpward = true;
+            }
+
+            if (fireForward || fireDownward || fireUpward)
+            {
+                // Handle cooldown and ammo of gun
                 fireCounter = 1.0f;
                 currentAmmo -= 1;
             }
@@ -70,13 +78,12 @@ public class Weapon : MonoBehaviour
         }
 
         // If on ground, trigger flag to be able to reload
-        if (controller.m_Grounded && fireCounter <= 0f)
+        if (controller.m_Grounded)
         {
             reloadAvailable = true;
         }
 
-        // If fired recently, reset reload
-        else if (fireCounter >= 0f)
+        else
         {
             reloadAvailable = false;
         }
@@ -96,10 +103,16 @@ public class Weapon : MonoBehaviour
             fireForward = false;
         }
 
-        if (fireDownward)
+        else if (fireDownward)
         {
             ShootDownward();
             fireDownward = false;
+        }
+
+        else if (fireUpward)
+        {
+            ShootUpward();
+            fireUpward = false;
         }
 
         if (recoil)
@@ -144,6 +157,28 @@ public class Weapon : MonoBehaviour
 
         // Fail safe
         controller.m_Grounded = false;
+
+        dampenedRecoil = recoilForce;
+
+        // Camera shake
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
+    }
+
+    void ShootUpward()
+    {
+        // Create bullet prefab + set up recoil function
+        GameObject bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+
+        // Change diirection of bullet to down
+        bullet.GetComponent<Bullet>().direction = Vector2.up;
+        recoil = true;
+
+        // Recoil backward
+        recoilDirection = -transform.up;
+
+        // Reset y velocity to be 0
+        rb.velocity = new Vector2(rb.velocity.x, 0); ;
+        recoilForce = recoilForceUpward;
 
         dampenedRecoil = recoilForce;
 

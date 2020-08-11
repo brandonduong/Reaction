@@ -7,16 +7,17 @@ public class AmmoUI : MonoBehaviour
 {
     private Text ammoText;
 
-    [SerializeField] private GameObject player;
+    private Weapon weapon;
 
     private void Start()
     {
         ammoText = GetComponent<Text>();
+        weapon = FindObjectOfType<Weapon>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ammoText.text = player.GetComponent<Weapon>().currentAmmo.ToString() + "/" + player.GetComponent<Weapon>().maxAmmo.ToString();
+        ammoText.text = weapon.currentAmmo.ToString() + "/" + weapon.maxAmmo.ToString();
     }
 }
