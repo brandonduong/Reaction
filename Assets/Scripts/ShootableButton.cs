@@ -8,7 +8,7 @@ public class ShootableButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet" && target)
         {
             // Toggle all colliders
             Collider2D[] colliders = target.GetComponents<Collider2D>();
