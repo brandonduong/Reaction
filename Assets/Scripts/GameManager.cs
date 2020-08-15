@@ -14,6 +14,24 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void NextLevel()
+    {
+        Debug.Log("Level won");
+        gameWin = true;
+
+        // Pops up the level complete screen
+        // levelCompleteUI.SetActive(true);
+
+        if (SceneManager.GetActiveScene().buildIndex + 1 > SceneManager.sceneCountInBuildSettings - 1)
+        {
+            Restart();
+            return;
+        }
+
+        // Load next scene in queue (Presumably the next level)
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
     public void EndGame()
     {
         if (!gameOver)

@@ -67,6 +67,15 @@ public class Weapon : MonoBehaviour
                 // Handle cooldown and ammo of gun
                 fireCounter = 1.0f;
                 currentAmmo -= 1;
+
+                // Set recently shot to true
+                controller.recentlyShot = true;
+
+                // Fail safe
+                controller.m_Grounded = false;
+
+                // Set recently shot to false after delay of x
+                Invoke("ResetRecentlyShot", 0.1f);
             }
         }
         
@@ -155,9 +164,6 @@ public class Weapon : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0); ;
         recoilForce = recoilForceDownward;
 
-        // Fail safe
-        controller.m_Grounded = false;
-
         dampenedRecoil = recoilForce;
 
         // Camera shake
@@ -224,5 +230,10 @@ public class Weapon : MonoBehaviour
     private void Reload()
     {
         currentAmmo = maxAmmo;
+    }
+
+    private void ResetRecentlyShot()
+    {
+        controller.recentlyShot = false;
     }
 }

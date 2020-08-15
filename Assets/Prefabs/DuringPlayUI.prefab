@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.7735849, g: 0.20799215, b: 0.20799215, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -206,6 +206,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ammo
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972268997230608390, guid: c11d3e0ea4ea6bc44af6f5f7ae8026da,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972268997230608390, guid: c11d3e0ea4ea6bc44af6f5f7ae8026da,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.20799215
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972268997230608390, guid: c11d3e0ea4ea6bc44af6f5f7ae8026da,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.20799215
       objectReference: {fileID: 0}
     - target: {fileID: 4972268997230608391, guid: c11d3e0ea4ea6bc44af6f5f7ae8026da,
         type: 3}

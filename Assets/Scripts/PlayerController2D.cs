@@ -15,6 +15,7 @@ public class PlayerController2D: MonoBehaviour
 
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     [HideInInspector] public bool m_Grounded;            // Whether or not the player is grounded.
+    [HideInInspector] public bool recentlyShot = false; // Whether or not the player has recently fired a gun.
     const float k_CeilingRadius = .2f;  // Radius of the overlap circle to determine if the player can stand up
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -57,7 +58,9 @@ public class PlayerController2D: MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject != gameObject && !ignoreForGroundedCheck.Contains(colliders[i].tag))
+            // Don't check if grounded if recently shot to prevent shooting and jumping at same time
+            if (colliders[i].gameObject != gameObject && !ignoreForGroundedCheck.Contains(colliders[i].tag)
+                && !recentlyShot)
             {
                 // Debug.Log(colliders[i].gameObject.ToString() + "grounded the player.");
                 m_Grounded = true;
@@ -83,7 +86,6 @@ public class PlayerController2D: MonoBehaviour
         //only control the player if grounded or airControl is turned on
         if (m_Grounded || m_AirControl)
         {
-
             // If crouching
             if (crouch && m_Grounded)
             {
@@ -133,6 +135,7 @@ public class PlayerController2D: MonoBehaviour
                 Flip();
             }
         }
+
         // If the player should jump...
         if (m_Grounded && jump && !m_wasCrouching)
         {
@@ -141,7 +144,6 @@ public class PlayerController2D: MonoBehaviour
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
         }
     }
-
 
     private void Flip()
     {
