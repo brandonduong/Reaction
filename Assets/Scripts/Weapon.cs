@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
     private bool fireUpward = false;
 
     public float recoilTime = 5.0f;
-    private bool recoil = false;
+    public bool recoil = false;
     private float recoilCounter = 0f;
     private Vector2 recoilDirection;
 
@@ -68,6 +68,7 @@ public class Weapon : MonoBehaviour
                 fireCounter = 1.0f;
                 currentAmmo -= 1;
 
+                // Prevents player from shooting and jumping at same time
                 // Set recently shot to true
                 controller.recentlyShot = true;
 

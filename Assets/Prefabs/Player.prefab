@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec47ea161fca8034d8a8380a642459a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 750
+  m_JumpForce: 28
   m_CrouchSpeed: 0.5
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -178,7 +178,10 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 8781320427682445607}
   m_CeilingCheck: {fileID: 8781320428299183002}
   m_CrouchDisableCollider: {fileID: 8781320426937735294}
+  fallMultiplier: 7
+  lowJumpMultiplier: 7
   m_Grounded: 0
+  recentlyShot: 0
   recoil: {x: 0, y: 0}
   OnLandEvent:
     m_PersistentCalls:
@@ -225,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 8781320426937735284}
   animator: {fileID: 8781320426937735285}
-  runSpeed: 40
+  runSpeed: 60
   jump: 0
 --- !u!95 &8781320426937735285
 Animator:
@@ -269,6 +272,7 @@ MonoBehaviour:
   maxAmmo: 2
   currentAmmo: 0
   recoilTime: 5
+  recoil: 0
 --- !u!114 &8781320426937735287
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class PlayerController2D: MonoBehaviour
     [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
+    public float fallMultiplier = 2.5f; // How much to multiply gravity by when character is falling down after a jump 
+    public float lowJumpMultiplier = 2.5f; // When player taps jump button instead of holds jump
+
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     [HideInInspector] public bool m_Grounded;            // Whether or not the player is grounded.
     [HideInInspector] public bool recentlyShot = false; // Whether or not the player has recently fired a gun.
@@ -67,6 +70,19 @@ public class PlayerController2D: MonoBehaviour
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
             }
+        }
+
+        // Handles better jumping
+        // Increase gravity if player is falling
+        if (m_Rigidbody2D.velocity.y < 0)
+        {
+            m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime; 
+        } 
+        // Increase gravity if player isn't holding jump and hasn't shot (recentlyShot ensures shooting downwards still has some effect)
+        else if (m_Rigidbody2D.velocity.y > 0 && !GetComponent<PlayerMovement>().jump && !GetComponent<Weapon>().recoil
+            && !recentlyShot) 
+        {
+            m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
     }
 
@@ -141,7 +157,9 @@ public class PlayerController2D: MonoBehaviour
         {
             // Add a vertical force to the player.
             // m_Grounded = false;
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            // m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            m_Rigidbody2D.velocity = Vector2.up * m_JumpForce;
+
         }
     }
 
