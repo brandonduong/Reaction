@@ -24,7 +24,10 @@ public class PlayerMovement : MonoBehaviour
             jump = true;
 
             // Handle animation for jumping
-            animator.SetBool("isJumping", true);
+            if (!animator.GetBool("isCrouching"))
+            {
+                animator.SetBool("isJumping", true);
+            }
         }
 
         else if (Input.GetButtonUp("Jump"))
