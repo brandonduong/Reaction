@@ -19,14 +19,17 @@ public class AppearWhenClose : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<Rigidbody2D>().position.x <= rect.position.x + range
+        if (player)
+        {
+            if (player.GetComponent<Rigidbody2D>().position.x <= rect.position.x + range
             && player.GetComponent<Rigidbody2D>().position.x >= rect.position.x - range)
-        {
-            animator.SetBool("visible", true);
-        }
-        else
-        {
-            animator.SetBool("visible", false);
+            {
+                animator.SetBool("visible", true);
+            }
+            else
+            {
+                animator.SetBool("visible", false);
+            }
         }
     }
 }
