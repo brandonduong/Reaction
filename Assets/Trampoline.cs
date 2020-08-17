@@ -6,8 +6,8 @@ public class Trampoline : MonoBehaviour
 {
     public GameObject player;
     private PlayerController2D controller;
-    public float velocityMultiplier = 10f;
-    public float velocityReducer = 0.7f;
+    // public float velocityMultiplier = 10f;
+    // public float velocityReducer = 0.7f;
 
     private void Start()
     {
@@ -25,6 +25,7 @@ public class Trampoline : MonoBehaviour
         if (gameObject.tag == "Trampoline")
         {
             // Handles y axis behaviour
+            /*
             if (collision.relativeVelocity.y < 0f)
             {
                 collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * velocityMultiplier * (-(collision.relativeVelocity.y * velocityReducer)));
@@ -32,7 +33,7 @@ public class Trampoline : MonoBehaviour
             else if (collision.relativeVelocity.y > 0f)
             {
                 collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * velocityMultiplier * (collision.relativeVelocity.y * velocityReducer));
-            }
+            }*/
 
             // Special case if player is using the trampoline
             if (collision.gameObject.tag == "Player")
@@ -47,6 +48,7 @@ public class Trampoline : MonoBehaviour
                 {
                     gameObject.tag = "Untagged";
                     controller.onTrampoline = false;
+                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, 0);
                 }
             }
         }
