@@ -7,7 +7,7 @@ public class Trampoline : MonoBehaviour
     public GameObject player;
     private PlayerController2D controller;
     public float velocityMultiplier = 10f;
-    public float velocityReducer = 11.5f;
+    public float velocityReducer = 0.7f;
 
     private void Start()
     {
@@ -27,17 +27,20 @@ public class Trampoline : MonoBehaviour
             // Handles y axis behaviour
             if (collision.relativeVelocity.y < 0f)
             {
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * velocityMultiplier * (-(collision.relativeVelocity.y + velocityReducer)));
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * velocityMultiplier * (-(collision.relativeVelocity.y * velocityReducer)));
             }
             else if (collision.relativeVelocity.y > 0f)
             {
-                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * velocityMultiplier * (collision.relativeVelocity.y - velocityReducer));
+                collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * velocityMultiplier * (collision.relativeVelocity.y * velocityReducer));
             }
 
             // Special case if player is using the trampoline
             if (collision.gameObject.tag == "Player")
             {
                 controller.onTrampoline = true;
+
+                // Ensure player can't bounce and shoot at the EXACT same time
+                player.GetComponent<Weapon>().fireCounter = 0.1f;
 
                 // If velocity is insignificant, consider trampoline as "ground"
                 if (Mathf.Abs(collision.relativeVelocity.y) < 15f)

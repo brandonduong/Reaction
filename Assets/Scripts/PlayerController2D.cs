@@ -83,8 +83,7 @@ public class PlayerController2D: MonoBehaviour
             m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime; 
         } 
         // Increase gravity if player isn't holding jump and hasn't shot (recentlyShot ensures shooting downwards still has some effect)
-        else if (m_Rigidbody2D.velocity.y > 0 && (!GetComponent<PlayerMovement>().jump || onTrampoline) && !GetComponent<Weapon>().recoil
-            && !recentlyShot) 
+        else if (m_Rigidbody2D.velocity.y > 0 && ((!GetComponent<PlayerMovement>().jump && !recentlyShot) || onTrampoline) && !GetComponent<Weapon>().recoil) 
         {
             m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }

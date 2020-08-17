@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     private Vector2 dampenedRecoil;
 
     public float fireRate = 2f; // Amount of bullets in 1 second
-    private float fireCounter = 0f;
+    public float fireCounter = 0f;
 
     public int maxAmmo = 2;
     public int currentAmmo;

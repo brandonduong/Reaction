@@ -123,4 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   velocityMultiplier: 60
-  velocityReducer: 11.5
+  velocityReducer: 0.82
