@@ -60,6 +60,9 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isJumping", false);
 
         jump = false;
+        
+        // Delay to ensure no misses for anything using recently recoiled variables
+        Invoke(nameof(ResetRecentlyRecoiled), 0.1f);
 
         // Handle special case of if player crouching in the air
         animator.SetBool("isCrouching", false);
@@ -69,5 +72,12 @@ public class PlayerMovement : MonoBehaviour
     public void OnCrouching(bool isCrouching)
     {
         animator.SetBool("isCrouching", isCrouching);
+    }
+
+    private void ResetRecentlyRecoiled()
+    {
+        controller.recentlyRecoiledDownwards = false;
+        controller.recentlyRecoiledUpwards = false;
+        controller.recentlyRecoiledBackwards = false;
     }
 }

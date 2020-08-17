@@ -41,7 +41,7 @@ public class Weapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // If gun can fire
         if (fireCounter <= 0f && currentAmmo > 0)
@@ -76,7 +76,7 @@ public class Weapon : MonoBehaviour
                 controller.m_Grounded = false;
 
                 // Set recently shot to false after delay of x
-                Invoke("ResetRecentlyShot", 0.1f);
+                Invoke(nameof(ResetRecentlyShot), 0.1f);
             }
         }
         
@@ -111,18 +111,21 @@ public class Weapon : MonoBehaviour
         {
             ShootForward();
             fireForward = false;
+            controller.recentlyRecoiledBackwards = true;
         }
 
         else if (fireDownward)
         {
             ShootDownward();
             fireDownward = false;
+            controller.recentlyRecoiledUpwards = true;
         }
 
         else if (fireUpward)
         {
             ShootUpward();
             fireUpward = false;
+            controller.recentlyRecoiledDownwards = true;
         }
 
         if (recoil)
@@ -224,7 +227,7 @@ public class Weapon : MonoBehaviour
         // Counts down til the next part of the smooth recoil
         if (recoilCounter >= 0f)
         {
-            recoilCounter -= Time.deltaTime * recoilTime;
+            recoilCounter -= Time.fixedDeltaTime * recoilTime;
         }
     }
 
