@@ -185,6 +185,8 @@ MonoBehaviour:
   recentlyRecoiledDownwards: 0
   recentlyRecoiledUpwards: 0
   recentlyRecoiledBackwards: 0
+  onTrampoline: 0
+  onIce: 0
   recoil: {x: 0, y: 0}
   OnLandEvent:
     m_PersistentCalls:
@@ -273,6 +275,7 @@ MonoBehaviour:
   recoilForceDownward: {x: 0, y: 70}
   recoilForceUpward: {x: 0, y: 100}
   fireRate: 4
+  fireCounter: 0
   maxAmmo: 2
   currentAmmo: 0
   recoilTime: 5

@@ -67,7 +67,7 @@ public class PlayerController2D: MonoBehaviour
         {
             // Don't check if grounded if recently shot to prevent shooting and jumping at same time
             if (colliders[i].gameObject != gameObject && !ignoreForGroundedCheck.Contains(colliders[i].tag)
-                && !recentlyShot)
+                && !recentlyShot && !colliders[i].isTrigger)
             {
                 // Debug.Log(colliders[i].gameObject.ToString() + "grounded the player.");
                 m_Grounded = true;
@@ -134,13 +134,20 @@ public class PlayerController2D: MonoBehaviour
                     OnCrouchEvent.Invoke(false);
                 }
             }
-
+            
             // Move the character by finding the target velocity
             Vector3 targetVelocity = new Vector2((move * 10f) + recoil.x, m_Rigidbody2D.velocity.y + recoil.y);
             recoil = Vector2.zero;
 
             // And then smoothing it out and applying it to the character
             m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+
+            // On ice physics
+            /*
+            else
+            {
+                m_Rigidbody2D.AddForce(new Vector2((move * 10f) + recoil.x, m_Rigidbody2D.velocity.y + recoil.y));
+            }*/
 
             // If the input is moving the player right and the player is facing left...
             if (move > 0 && !m_FacingRight)
