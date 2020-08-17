@@ -22,6 +22,7 @@ public class PlayerController2D: MonoBehaviour
     [HideInInspector] public bool recentlyRecoiledDownwards = false;
     [HideInInspector] public bool recentlyRecoiledUpwards = false;
     [HideInInspector] public bool recentlyRecoiledBackwards = false;
+    [HideInInspector] public bool onTrampoline = false;
     const float k_CeilingRadius = .2f;  // Radius of the overlap circle to determine if the player can stand up
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -82,7 +83,7 @@ public class PlayerController2D: MonoBehaviour
             m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime; 
         } 
         // Increase gravity if player isn't holding jump and hasn't shot (recentlyShot ensures shooting downwards still has some effect)
-        else if (m_Rigidbody2D.velocity.y > 0 && !GetComponent<PlayerMovement>().jump && !GetComponent<Weapon>().recoil
+        else if (m_Rigidbody2D.velocity.y > 0 && (!GetComponent<PlayerMovement>().jump || onTrampoline) && !GetComponent<Weapon>().recoil
             && !recentlyShot) 
         {
             m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
@@ -99,6 +100,7 @@ public class PlayerController2D: MonoBehaviour
             if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
             {
                 crouch = true;
+                m_Grounded = true;
             }
         }
 
@@ -162,8 +164,6 @@ public class PlayerController2D: MonoBehaviour
             // m_Grounded = false;
             // m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             m_Rigidbody2D.velocity = Vector2.up * m_JumpForce;
-
-            // ResetRecentlyRecoiled();
         }
     }
 

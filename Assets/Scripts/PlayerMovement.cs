@@ -66,6 +66,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Handle special case of if player crouching in the air
         animator.SetBool("isCrouching", false);
+
+        // Handles trampoline effects
+        controller.onTrampoline = false;
     }
 
     // Called when player crouches or uncrouches
