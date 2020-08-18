@@ -16,7 +16,7 @@ public enum RecoilType
     Static
 }
 
-public class WeaponHandling : MonoBehaviour
+public class GunManager : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
@@ -25,12 +25,11 @@ public class WeaponHandling : MonoBehaviour
 
     private Vector2 recoilForce = Vector2.zero;
 
-
     private Vector2 dampenedRecoil;
 
     public GunType gunType;
     public IGun currentGun;
-    public List<IGun> guns = new List<IGun>();
+    public List<IGun> guns = new List<IGun>(); // List of all guns in player's loadout
 
     private bool fireForward = false;
     private bool fireDownward = false;
@@ -273,9 +272,6 @@ public class WeaponHandling : MonoBehaviour
 
     private void SwitchGuns()
     {
-        // Save current gun
-        // SaveGunState();
-
         // Cycle to next gun
         gunType += 1;
 
@@ -287,37 +283,5 @@ public class WeaponHandling : MonoBehaviour
 
         // Equip next gun in cycle
         currentGun = guns[(int)gunType];
-
-        /*
-        // Save current gun's current ammo
-        SaveGunState();
-
-        // Cycle to next gun
-        currentGunIndex += 1;
-        if (currentGunIndex > guns.Length - 1)
-        {
-            currentGunIndex = 0;
-        }
-
-        string lastGun = currentGun;
-        currentGun = guns[currentGunIndex];
-
-        if (currentGun == "Pistol")
-        {
-            // Set gun properties
-            fireRate = pistol.fireRate;
-            fireCounter = pistol.fireCounter;
-            maxAmmo = pistol.maxAmmo;
-            if (lastGun != currentGun)
-            {
-                currentAmmo = pistol.currentAmmo;
-            }
-
-            // Set gun recoil
-            recoilForceForward = pistol.recoilForceForward;
-            recoilForceDownward = pistol.recoilForceDownward;
-            recoilForceUpward = pistol.recoilForceUpward;
-        }
-        */
     }
 }

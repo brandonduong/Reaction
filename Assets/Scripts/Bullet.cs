@@ -8,8 +8,9 @@ public class Bullet : MonoBehaviour
     public GameObject impactEffect;
 
     public Vector2 direction;
-    public float speed = 20f;
-    public int damage = 50;
+
+    private float speed;
+    private int damage;
 
     public float lifeTime = 3f;
 
@@ -18,6 +19,10 @@ public class Bullet : MonoBehaviour
     {
         // Move forward according to speed
         rb.velocity = direction * speed;
+
+        IGun currentGun = FindObjectOfType<GunManager>().currentGun;
+        damage = currentGun.BulletDamage;
+        speed = currentGun.BulletSpeed;
 
         // Destroy bullet after a certain amount of time to avoid prefab clutter
         Destroy(gameObject, lifeTime);

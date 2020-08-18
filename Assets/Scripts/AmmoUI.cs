@@ -7,12 +7,12 @@ public class AmmoUI : MonoBehaviour
 {
     private Text ammoText;
 
-    private WeaponHandling weapon;
+    private GunManager weapon;
 
     private void Start()
     {
         ammoText = GetComponent<Text>();
-        weapon = FindObjectOfType<WeaponHandling>();
+        weapon = FindObjectOfType<GunManager>();
     }
 
     // Update is called once per frame

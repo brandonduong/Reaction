@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AmmoUp : MonoBehaviour
 {
-    private WeaponHandling weapon;
+    private GunManager weapon;
     public float activeRate = 0.1f; // Amount of refreshes in 1 sec
     private float cooldownCounter = 0;
 
     private void Start()
     {
-        weapon = FindObjectOfType<WeaponHandling>();
+        weapon = FindObjectOfType<GunManager>();
     }
 
     void Update()
