@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6352384399368946629}
   - component: {fileID: 3041764995824124806}
   - component: {fileID: 746921166264862843}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -137,6 +137,4 @@ MonoBehaviour:
   impactEffect: {fileID: 7507734457380702087, guid: cb5c4c0e37c7f7c4f9462e6c6f4c5371,
     type: 3}
   direction: {x: 0, y: 0}
-  speed: 30
-  damage: 50
   lifeTime: 3

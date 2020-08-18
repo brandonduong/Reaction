@@ -20,22 +20,21 @@ public class GunManager : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     private PlayerController2D controller;
 
     private Vector2 recoilForce = Vector2.zero;
 
     private Vector2 dampenedRecoil;
 
-    public GunType gunType;
-    public IGun currentGun;
+    public GunType startingGun = GunType.Pistol; // Default gun
+    public GunType gunType; // Keeps track of current gun's type
+    public IGun currentGun; // Holds actual gun object
     public List<IGun> guns = new List<IGun>(); // List of all guns in player's loadout
 
     private bool fireForward = false;
     private bool fireDownward = false;
     private bool fireUpward = false;
-
-    public float fireCounter = 0f;
 
     public float recoilTime = 5.0f;
     public bool recoil = false;
@@ -46,6 +45,7 @@ public class GunManager : MonoBehaviour
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<PlayerController2D>();
 
         // Add weapons to player loadout
@@ -56,8 +56,8 @@ public class GunManager : MonoBehaviour
         guns.Add(gameObject.GetComponent<Deagle>());
 
         // Set default gun
-        gunType = GunType.Pistol;
-        SwitchGuns();
+        gunType = startingGun;
+        currentGun = guns[(int)gunType];
     }
 
     // Update is called once per frame
@@ -69,7 +69,7 @@ public class GunManager : MonoBehaviour
         }
 
         // If gun can fire
-        if (fireCounter <= 0f && currentGun.CurrentAmmo > 0)
+        if (currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0)
         {
             // Whenever fire button is pressed
             if (Input.GetButtonDown("Fire1"))
@@ -90,7 +90,7 @@ public class GunManager : MonoBehaviour
             if (fireForward || fireDownward || fireUpward)
             {
                 // Handle cooldown and ammo of gun
-                fireCounter = 1.0f;
+                currentGun.FireCounter = 1.0f;
                 currentGun.CurrentAmmo -= 1;
 
                 // Prevents player from shooting and jumping at same time
@@ -105,11 +105,14 @@ public class GunManager : MonoBehaviour
             }
         }
         
-        // Counts down for the next time the gun can be fired
-        if (fireCounter >= 0f)
+        // Countdown the next time ALL guns can be fired
+        foreach (IGun gun in guns)
         {
             // Handles gun cooldown
-            fireCounter -= Time.deltaTime * currentGun.FireRate;
+            if (gun.FireCounter >= 0f)
+            {
+                gun.FireCounter -= Time.deltaTime * gun.FireRate;
+            }
         }
 
         // If on ground, trigger flag to be able to reload
@@ -174,7 +177,7 @@ public class GunManager : MonoBehaviour
         dampenedRecoil = recoilForce;
 
         // Camera shake
-        GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse(currentGun.RecoilScreenShake);
     }
 
     void ShootDownward()
@@ -196,7 +199,7 @@ public class GunManager : MonoBehaviour
         dampenedRecoil = recoilForce;
 
         // Camera shake
-        GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse(currentGun.RecoilScreenShake);
     }
 
     void ShootUpward()
@@ -218,34 +221,26 @@ public class GunManager : MonoBehaviour
         dampenedRecoil = recoilForce;
 
         // Camera shake
-        GetComponent<CinemachineImpulseSource>().GenerateImpulse(1f);
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse(currentGun.RecoilScreenShake);
     }
 
     private void Recoil()
     {
         if (recoilCounter <= 0f)
         {
-            // Set recoil in player controller script to this weapon's recoil
-            controller.recoil = dampenedRecoil * recoilDirection;
-
-            // Reduce second recoil for smoothing
-            dampenedRecoil *= 0.95f;
-            recoilCounter = 0.1f;
-
-            // If grounded, reduce recoil
-            if (controller.m_Grounded)
+            switch (currentGun.RecoilType)
             {
-                dampenedRecoil *= 0.9f;
-                recoilCounter = 0.05f;
-            }
+                case RecoilType.Gradual:
+                    GradualRecoil();
+                    break;
 
-            // If next recoil is negligible, reset all
-            if (dampenedRecoil.x <= 25f)
-            {
-                // Debug.Log("Reset");
-                recoil = false;
-                dampenedRecoil = recoilForce;
-                recoilCounter = 0f;
+                case RecoilType.Static:
+                    StaticRecoil();
+                    break;
+
+                default:
+                    GradualRecoil();
+                    break;
             }
         }
 
@@ -254,6 +249,46 @@ public class GunManager : MonoBehaviour
         {
             recoilCounter -= Time.fixedDeltaTime * recoilTime;
         }
+    }
+
+    private void GradualRecoil()
+    {
+        // Set recoil in player controller script to this weapon's recoil
+        controller.recoil = dampenedRecoil * recoilDirection;
+
+        // Reduce second recoil for smoothing
+        dampenedRecoil *= 0.95f;
+        recoilCounter = 0.1f;
+
+        // If grounded, reduce recoil
+        if (controller.m_Grounded)
+        {
+            dampenedRecoil *= 0.7f;
+
+            // If player is holding against recoil, reduce even harder
+            if ((GetComponent<PlayerMovement>().horizontalMovement > 0 && recoilDirection.x < 0)
+                || (GetComponent<PlayerMovement>().horizontalMovement < 0 && recoilDirection.x > 0))
+            {
+                dampenedRecoil *= 0.7f;
+            }
+        }
+
+        // If next recoil is negligible, reset all
+        if (dampenedRecoil.x <= 25f)
+        {
+            // Debug.Log("Reset");
+            recoil = false;
+            dampenedRecoil = recoilForce;
+            recoilCounter = 0f;
+        }
+    }
+
+    private void StaticRecoil()
+    {
+        rb.AddForce(dampenedRecoil * recoilDirection);
+        recoil = false;
+        dampenedRecoil = recoilForce;
+        recoilCounter = 0f;
     }
 
     private void Reload()

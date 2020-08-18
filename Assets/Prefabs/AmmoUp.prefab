@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5925145331154611623}
   - component: {fileID: 5925145331154611620}
   - component: {fileID: 5925145331154611617}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AmmoUp
   m_TagString: IgnoreForGroundedCheck
   m_Icon: {fileID: 0}

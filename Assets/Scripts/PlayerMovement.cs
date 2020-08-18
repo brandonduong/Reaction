@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
 
     public float runSpeed = 40;
-    float horizontalMovement = 0;
+    public float horizontalMovement = 0;
     public bool jump = false;
     bool crouch = false;
 

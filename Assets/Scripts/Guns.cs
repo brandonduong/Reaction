@@ -46,6 +46,22 @@ public interface IGun
     {
         get;
     }
+
+    RecoilType RecoilType
+    {
+        get;
+    }
+
+    float RecoilScreenShake
+    {
+        get;
+    }
+
+    float FireCounter // Guns must have individual cooldowns
+    {
+        get;
+        set;
+    }
 }
 
 public class Pistol : MonoBehaviour, IGun
@@ -56,7 +72,7 @@ public class Pistol : MonoBehaviour, IGun
 
     public int BulletDamage { get; } = 50;
 
-    public float BulletSpeed { get; } = 20f;
+    public float BulletSpeed { get; } = 30f;
 
     public int CurrentAmmo { get; set; } = 2;
 
@@ -65,6 +81,12 @@ public class Pistol : MonoBehaviour, IGun
     public Vector2 RecoilForceDownward { get; } = new Vector2(0, 70);
 
     public Vector2 RecoilForceUpward { get; } = new Vector2(0, 100);
+
+    public RecoilType RecoilType { get; } = RecoilType.Gradual;
+
+    public float RecoilScreenShake { get; } = 0.5f;
+
+    public float FireCounter { get; set; } = 0f;
 }
 
 public class Deagle : MonoBehaviour, IGun
@@ -75,13 +97,19 @@ public class Deagle : MonoBehaviour, IGun
 
     public int BulletDamage { get; } = 100;
 
-    public float BulletSpeed { get; } = 40f;
+    public float BulletSpeed { get; } = 60f;
 
     public int CurrentAmmo { get; set; } = 1;
 
-    public Vector2 RecoilForceForward { get; } = new Vector2(100, 0);
+    public Vector2 RecoilForceForward { get; } = new Vector2(100, 0); // new Vector2(5000, 0);
 
-    public Vector2 RecoilForceDownward { get; } = new Vector2(0, 140);
+    public Vector2 RecoilForceDownward { get; } = new Vector2(0, 140); // new Vector2(0, 1400);
 
-    public Vector2 RecoilForceUpward { get; } = new Vector2(0, 200);
+    public Vector2 RecoilForceUpward { get; } = new Vector2(0, 200); // new Vector2(0, 3000);
+
+    public RecoilType RecoilType { get; } = RecoilType.Gradual; // RecoilType.Static;
+
+    public float RecoilScreenShake { get; } = 1.5f;
+
+    public float FireCounter { get; set; } = 0f;
 }

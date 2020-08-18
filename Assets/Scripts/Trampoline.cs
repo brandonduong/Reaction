@@ -41,7 +41,7 @@ public class Trampoline : MonoBehaviour
                 controller.onTrampoline = true;
 
                 // Ensure player can't bounce and shoot at the EXACT same time
-                player.GetComponent<GunManager>().fireCounter = 0.1f;
+                player.GetComponent<GunManager>().currentGun.FireCounter = 0.1f;
 
                 // If velocity is insignificant, consider trampoline as "ground"
                 if (Mathf.Abs(collision.relativeVelocity.y) < 15f)

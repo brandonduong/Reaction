@@ -17,12 +17,13 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Move forward according to speed
-        rb.velocity = direction * speed;
-
+        // Gather current gun info
         IGun currentGun = FindObjectOfType<GunManager>().currentGun;
         damage = currentGun.BulletDamage;
         speed = currentGun.BulletSpeed;
+
+        // Move forward according to speed
+        rb.velocity = direction * speed;
 
         // Destroy bullet after a certain amount of time to avoid prefab clutter
         Destroy(gameObject, lifeTime);
@@ -30,25 +31,20 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag != "Player")
+        // If collision object is breakable, reduce health
+        Breakable breakable = collision.GetComponent<Breakable>();
+        if (breakable != null)
         {
-            // Debug.Log(collision.name);
-
-            // If collision object is breakable, reduce health
-            Breakable breakable = collision.GetComponent<Breakable>();
-            if (breakable != null)
-            {
-                breakable.TakeDamage(damage);
-            }
-
-            // Create effect + reference
-            GameObject effect = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-
-            // Destroy bullet
-            Destroy(gameObject);
-
-            // Destroy effect
-            Destroy(effect, 1);
+            breakable.TakeDamage(damage);
         }
+
+        // Create effect + reference
+        GameObject effect = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+
+        // Destroy bullet
+        Destroy(gameObject);
+
+        // Destroy effect
+        Destroy(effect, 1);
     }
 }
