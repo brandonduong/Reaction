@@ -39,6 +39,9 @@ public class AmmoUp : MonoBehaviour
             // Increase current weapon's ammo by 1
             weapon.currentGun.CurrentAmmo += 1;
 
+            // Take gun off cooldown
+            weapon.currentGun.FireCounter = 0f;
+
             // Reset cooldown counter
             cooldownCounter = 1;
 
