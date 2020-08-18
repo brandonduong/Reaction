@@ -3,6 +3,7 @@ using System.Collections;
 public class Guns : MonoBehaviour
 {
 }
+
 public interface IGun
 {
     float FireRate
@@ -11,6 +12,16 @@ public interface IGun
     }
 
     int MaxAmmo
+    {
+        get;
+    }
+
+    int BulletDamage
+    {
+        get;
+    }
+
+    float BulletSpeed
     {
         get;
     }
@@ -36,11 +47,16 @@ public interface IGun
         get;
     }
 }
+
 public class Pistol : MonoBehaviour, IGun
 {
-    public float FireRate { get; } = 10f;
+    public float FireRate { get; } = 5f;
 
     public int MaxAmmo { get; } = 2;
+
+    public int BulletDamage { get; } = 50;
+
+    public float BulletSpeed { get; } = 20f;
 
     public int CurrentAmmo { get; set; } = 2;
 
@@ -56,6 +72,10 @@ public class Deagle : MonoBehaviour, IGun
     public float FireRate { get; } = 1f;
 
     public int MaxAmmo { get; } = 1;
+
+    public int BulletDamage { get; } = 100;
+
+    public float BulletSpeed { get; } = 40f;
 
     public int CurrentAmmo { get; set; } = 1;
 
