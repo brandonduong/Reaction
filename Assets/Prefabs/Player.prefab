@@ -5084,6 +5084,10 @@ MonoBehaviour:
   firePoint: {fileID: 8781320427305138120}
   bulletPrefab: {fileID: 4133428032583355473, guid: aad480710e982a34eb5ba26e2c12a9e2,
     type: 3}
+  playerGhostPrefab: {fileID: 3072902753352736260, guid: 4266f48c1d60c0849adc55f7d25ae669,
+    type: 3}
+  numGhosts: 3
+  timeBetweenGhosts: 0.5
   startingGun: 0
   gunType: 0
   recoilTime: 5

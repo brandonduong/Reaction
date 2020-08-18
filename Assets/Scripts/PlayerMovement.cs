@@ -69,6 +69,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Handles trampoline effects
         controller.onTrampoline = false;
+
+        // Audio
+        AudioManager.instance.PlaySound("PlayerLand");
     }
 
     // Called when player crouches or uncrouches

@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9137237296839257059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9137237296839257061}
+  - component: {fileID: 9137237296839257060}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9137237296839257061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9137237296839257059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.12491633, y: 11.542951, z: -73.65286}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9137237296839257060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9137237296839257059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5be918325b9c04746a67683e10cfdb7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: PistolGunShot
+    clip: {fileID: 8300000, guid: d126751558dfd374baa24b785329983d, type: 3}
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
+  - name: DeagleGunShot
+    clip: {fileID: 8300000, guid: e9673d4829a4d4448b2636828bb9ecc5, type: 3}
+    volume: 0.75
+    pitch: 1
+    source: {fileID: 0}
+  - name: BulletCollision
+    clip: {fileID: 8300000, guid: ca2d6ccb3e9959543a186a32d9a085ab, type: 3}
+    volume: 0.15
+    pitch: 1
+    source: {fileID: 0}
+  - name: PlayerDeath
+    clip: {fileID: 8300000, guid: f22852fb8bde63c4898cc168bb8369f9, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: BreakableBreak
+    clip: {fileID: 8300000, guid: 8e1f9ff0cd063fb4e9ff54afbfb2ec2f, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Reload
+    clip: {fileID: 8300000, guid: 52393b4cf4129724bbe7fce4e0251706, type: 3}
+    volume: 1
+    pitch: 0.8
+    source: {fileID: 0}
+  - name: AmmoUpGet
+    clip: {fileID: 8300000, guid: b55039c24c071a847829119d07f8641f, type: 3}
+    volume: 1
+    pitch: 0.8
+    source: {fileID: 0}
+  - name: PlayerJump
+    clip: {fileID: 8300000, guid: e1c080c9e24d3994997f7f980256818b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: PlayerLand
+    clip: {fileID: 8300000, guid: e82539c07a9c36f46932462f06413966, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

@@ -20,6 +20,11 @@ public class GunManager : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+
+    public GameObject playerGhostPrefab;
+    public int numGhosts = 3;
+    public float timeBetweenGhosts = 0.5f;
+
     private Rigidbody2D rb;
     private PlayerController2D controller;
 
@@ -192,6 +197,17 @@ public class GunManager : MonoBehaviour
 
         // Run particle system
         GetComponentInChildren<ParticleSystem>().Play();
+
+        // Create ghost effect of player
+        for (int i = 0; i < numGhosts; i++)
+        {
+            Invoke(nameof(GhostEffects), i * timeBetweenGhosts);
+        }
+    }
+
+    private void GhostEffects()
+    {
+        Instantiate(playerGhostPrefab, transform.position, transform.rotation);
     }
 
     private void Recoil()
