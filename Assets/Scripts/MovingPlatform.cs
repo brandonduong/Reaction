@@ -21,13 +21,13 @@ public class MovingPlatform : MonoBehaviour
     {
         for (int i = 0; i < points.Length; i++)
         {
-            Debug.Log(transform.position);
+            // Debug.Log(transform.position);
             if (transform.position == points[i].position)
             {
                 // If reach end of path, go backwards
                 if ((i == points.Length - 1) || (i == 0))
                 {
-                    Debug.Log("switch direction");
+                    // Debug.Log("switch direction");
                     forwards = !forwards;
                 }
 
