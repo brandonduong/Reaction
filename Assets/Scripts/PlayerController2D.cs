@@ -60,6 +60,9 @@ public class PlayerController2D: MonoBehaviour
         bool wasGrounded = m_Grounded;
         m_Grounded = false;
 
+        // Resets players transform if not on a moving platform
+        GetComponent<Transform>().parent = null;
+
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
@@ -73,6 +76,12 @@ public class PlayerController2D: MonoBehaviour
                 m_Grounded = true;
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
+
+                // If player is on a moving platform, have player move with it!
+                if (colliders[i].gameObject.tag == "MovingPlatform")
+                {
+                    GetComponent<Transform>().parent = colliders[i].gameObject.transform;
+                }
             }
         }
 

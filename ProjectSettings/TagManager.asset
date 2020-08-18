@@ -8,6 +8,7 @@ TagManager:
   - IgnoreForGroundedCheck
   - Trampoline
   - IceFloor
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
