@@ -38,8 +38,11 @@ public class GameManager : MonoBehaviour
         {
             gameOver = true;
 
+            // Audio
+            AudioManager.instance.PlaySound("PlayerDeath");
+
             // If game over, restart level
-            Restart();
+            Invoke(nameof(Restart), 1f);
         }
     }
 

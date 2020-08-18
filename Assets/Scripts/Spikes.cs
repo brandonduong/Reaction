@@ -27,7 +27,7 @@ public class Spikes : MonoBehaviour
             Destroy(effect, 1);
 
             // Level failed
-            Invoke("LevelFailed", 1f);
+            LevelFailed();
         }
     }
 

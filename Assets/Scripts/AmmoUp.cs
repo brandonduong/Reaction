@@ -36,6 +36,9 @@ public class AmmoUp : MonoBehaviour
         if (collision.tag == "Player" && cooldownCounter <= 0 &&
             weapon.currentGun.CurrentAmmo < weapon.currentGun.MaxAmmo)
         {
+            // Audio
+            AudioManager.instance.PlaySound("AmmoUpGet");
+
             // Increase current weapon's ammo by 1
             weapon.currentGun.CurrentAmmo += 1;
 

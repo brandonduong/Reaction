@@ -41,6 +41,9 @@ public class Bullet : MonoBehaviour
         // Create effect + reference
         GameObject effect = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
 
+        // Audio
+        AudioManager.instance.PlaySound("BulletCollision");
+
         // Destroy bullet
         Destroy(gameObject);
 

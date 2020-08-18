@@ -49,6 +49,9 @@ public class Breakthroughable : MonoBehaviour
         // Create effect + reference
         GameObject effect = (GameObject)Instantiate(breakEffect, player.GetComponent<Rigidbody2D>().position, transform.rotation);
 
+        // Audio
+        AudioManager.instance.PlaySound("BreakableBreak");
+
         // Destroy block
         Destroy(gameObject);
 

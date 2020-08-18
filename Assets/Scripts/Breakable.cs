@@ -23,11 +23,13 @@ public class Breakable : MonoBehaviour
         // Create effect + reference
         GameObject effect = (GameObject)Instantiate(breakEffect, transform.position, transform.rotation);
 
+        // Audio
+        AudioManager.instance.PlaySound("BreakableBreak");
+
         // Destroy breakable object
         Destroy(gameObject);
 
         // Destroy effect
         Destroy(effect, 1);
     }
-
 }

@@ -62,6 +62,11 @@ public interface IGun
         get;
         set;
     }
+
+    string ShotSound
+    {
+        get;
+    }
 }
 
 public class Pistol : MonoBehaviour, IGun
@@ -87,6 +92,8 @@ public class Pistol : MonoBehaviour, IGun
     public float RecoilScreenShake { get; } = 0.5f;
 
     public float FireCounter { get; set; } = 0f;
+
+    public string ShotSound { get; } = "PistolGunShot"; // Name of the audio file to play when shot
 }
 
 public class Deagle : MonoBehaviour, IGun
@@ -112,4 +119,6 @@ public class Deagle : MonoBehaviour, IGun
     public float RecoilScreenShake { get; } = 1.5f;
 
     public float FireCounter { get; set; } = 0f;
+
+    public string ShotSound { get; } = "DeagleGunShot"; // Name of the audio file to play when shot
 }

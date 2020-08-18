@@ -174,14 +174,24 @@ public class GunManager : MonoBehaviour
         recoil = true;
         recoilDirection = recoilDir;
 
-        // Reset y velocity to be 0
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+        // Reset y velocity to be 0 if recoil is to effect it
+        if (recoilFor.y != 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+
         recoilForce = recoilFor;
 
         dampenedRecoil = recoilForce;
 
         // Camera shake
         GetComponent<CinemachineImpulseSource>().GenerateImpulse(currentGun.RecoilScreenShake);
+
+        // Audio
+        AudioManager.instance.PlaySound(currentGun.ShotSound);
+
+        // Run particle system
+        GetComponentInChildren<ParticleSystem>().Play();
     }
 
     private void Recoil()
@@ -254,10 +264,22 @@ public class GunManager : MonoBehaviour
 
     private void Reload()
     {
+        // Only play reload sound if actually reloaded
+        bool reloaded = false;
+
         // Reload all guns
         foreach (IGun gun in guns)
         {
-            gun.CurrentAmmo = gun.MaxAmmo;
+            if (gun.CurrentAmmo != gun.MaxAmmo)
+            {
+                gun.CurrentAmmo = gun.MaxAmmo;
+                reloaded = true;
+            }
+        }
+
+        if (reloaded)
+        {
+            AudioManager.instance.PlaySound("Reload");
         }
     }
 
