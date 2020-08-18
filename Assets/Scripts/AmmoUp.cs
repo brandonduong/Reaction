@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AmmoUp : MonoBehaviour
 {
-    private Weapon weapon;
+    private WeaponHandling weapon;
     public float activeRate = 0.1f; // Amount of refreshes in 1 sec
     private float cooldownCounter = 0;
 
     private void Start()
     {
-        weapon = FindObjectOfType<Weapon>();
+        weapon = FindObjectOfType<WeaponHandling>();
     }
 
     void Update()
@@ -34,10 +34,10 @@ public class AmmoUp : MonoBehaviour
     {
         // If player gets power up, and is able to make use of it
         if (collision.tag == "Player" && cooldownCounter <= 0 &&
-            weapon.currentAmmo < weapon.maxAmmo)
+            weapon.currentGun.CurrentAmmo < weapon.currentGun.MaxAmmo)
         {
             // Increase current weapon's ammo by 1
-            weapon.currentAmmo += 1;
+            weapon.currentGun.CurrentAmmo += 1;
 
             // Reset cooldown counter
             cooldownCounter = 1;

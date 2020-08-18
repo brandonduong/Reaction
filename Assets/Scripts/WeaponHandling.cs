@@ -1,9 +1,22 @@
 ﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public enum GunType
+{
+    Pistol,
+    Deagle
+}
+
+public enum RecoilType
+{
+    Gradual,
+    Static
+}
+
+public class WeaponHandling : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
@@ -11,21 +24,19 @@ public class Weapon : MonoBehaviour
     private PlayerController2D controller;
 
     private Vector2 recoilForce = Vector2.zero;
-    public Vector2 recoilForceForward; // Recoil when shooting forward
-    public Vector2 recoilForceDownward; // Recoil when shooting downward
-    public Vector2 recoilForceUpward; // Recoil when shooting upward
+
 
     private Vector2 dampenedRecoil;
 
-    public float fireRate = 2f; // Amount of bullets in 1 second
-    public float fireCounter = 0f;
-
-    public int maxAmmo = 2;
-    public int currentAmmo;
+    public GunType gunType;
+    public IGun currentGun;
+    public List<IGun> guns = new List<IGun>();
 
     private bool fireForward = false;
     private bool fireDownward = false;
     private bool fireUpward = false;
+
+    public float fireCounter = 0f;
 
     public float recoilTime = 5.0f;
     public bool recoil = false;
@@ -37,14 +48,29 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<PlayerController2D>();
-        currentAmmo = maxAmmo;
+
+        // Add weapons to player loadout
+        gameObject.AddComponent<Pistol>();
+        gameObject.AddComponent<Deagle>();
+
+        guns.Add(gameObject.GetComponent<Pistol>());
+        guns.Add(gameObject.GetComponent<Deagle>());
+
+        // Set default gun
+        gunType = GunType.Pistol;
+        SwitchGuns();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetButtonDown("SwitchGuns"))
+        {
+            SwitchGuns();
+        }
+
         // If gun can fire
-        if (fireCounter <= 0f && currentAmmo > 0)
+        if (fireCounter <= 0f && currentGun.CurrentAmmo > 0)
         {
             // Whenever fire button is pressed
             if (Input.GetButtonDown("Fire1"))
@@ -66,7 +92,7 @@ public class Weapon : MonoBehaviour
             {
                 // Handle cooldown and ammo of gun
                 fireCounter = 1.0f;
-                currentAmmo -= 1;
+                currentGun.CurrentAmmo -= 1;
 
                 // Prevents player from shooting and jumping at same time
                 // Set recently shot to true
@@ -84,7 +110,7 @@ public class Weapon : MonoBehaviour
         if (fireCounter >= 0f)
         {
             // Handles gun cooldown
-            fireCounter -= Time.deltaTime * fireRate;
+            fireCounter -= Time.deltaTime * currentGun.FireRate;
         }
 
         // If on ground, trigger flag to be able to reload
@@ -145,7 +171,7 @@ public class Weapon : MonoBehaviour
 
         // Recoil backward
         recoilDirection = -transform.right;
-        recoilForce = recoilForceForward;
+        recoilForce = currentGun.RecoilForceForward;
         dampenedRecoil = recoilForce;
 
         // Camera shake
@@ -166,7 +192,7 @@ public class Weapon : MonoBehaviour
         
         // Reset y velocity to be 0
         rb.velocity = new Vector2(rb.velocity.x, 0); ;
-        recoilForce = recoilForceDownward;
+        recoilForce = currentGun.RecoilForceDownward;
 
         dampenedRecoil = recoilForce;
 
@@ -188,7 +214,7 @@ public class Weapon : MonoBehaviour
 
         // Reset y velocity to be 0
         rb.velocity = new Vector2(rb.velocity.x, 0); ;
-        recoilForce = recoilForceUpward;
+        recoilForce = currentGun.RecoilForceUpward;
 
         dampenedRecoil = recoilForce;
 
@@ -233,11 +259,65 @@ public class Weapon : MonoBehaviour
 
     private void Reload()
     {
-        currentAmmo = maxAmmo;
+        // Reload all guns
+        foreach (IGun gun in guns)
+        {
+            gun.CurrentAmmo = gun.MaxAmmo;
+        }
     }
 
     private void ResetRecentlyShot()
     {
         controller.recentlyShot = false;
+    }
+
+    private void SwitchGuns()
+    {
+        // Save current gun
+        // SaveGunState();
+
+        // Cycle to next gun
+        gunType += 1;
+
+        // Reset cycle if 
+        if ((int)gunType > (Enum.GetNames(typeof(GunType)).Length - 1))
+        {
+            gunType = 0;
+        }
+
+        // Equip next gun in cycle
+        currentGun = guns[(int)gunType];
+
+        /*
+        // Save current gun's current ammo
+        SaveGunState();
+
+        // Cycle to next gun
+        currentGunIndex += 1;
+        if (currentGunIndex > guns.Length - 1)
+        {
+            currentGunIndex = 0;
+        }
+
+        string lastGun = currentGun;
+        currentGun = guns[currentGunIndex];
+
+        if (currentGun == "Pistol")
+        {
+            // Set gun properties
+            fireRate = pistol.fireRate;
+            fireCounter = pistol.fireCounter;
+            maxAmmo = pistol.maxAmmo;
+            if (lastGun != currentGun)
+            {
+                currentAmmo = pistol.currentAmmo;
+            }
+
+            // Set gun recoil
+            recoilForceForward = pistol.recoilForceForward;
+            recoilForceDownward = pistol.recoilForceDownward;
+            recoilForceUpward = pistol.recoilForceUpward;
+        }
+        */
     }
 }
