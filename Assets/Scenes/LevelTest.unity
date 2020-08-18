@@ -5749,16 +5749,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8781320426937735286, guid: c8044abdf5ddf174eb8d683938f39c31,
-        type: 3}
-      propertyPath: guns.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8781320426937735286, guid: c8044abdf5ddf174eb8d683938f39c31,
-        type: 3}
-      propertyPath: guns.Array.data[0]
-      value: Pistol
-      objectReference: {fileID: 0}
     - target: {fileID: 8781320426937735293, guid: c8044abdf5ddf174eb8d683938f39c31,
         type: 3}
       propertyPath: m_Name
@@ -6438,18 +6428,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1033659029}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1591540470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591540469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebf0c4c9bc3650f4e97435e6386c80d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1591540480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8781320426937735280, guid: c8044abdf5ddf174eb8d683938f39c31,
@@ -7402,7 +7380,7 @@ PrefabInstance:
     - target: {fileID: 4612455000384022108, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.128563
+      value: -22.080112
       objectReference: {fileID: 0}
     - target: {fileID: 4612455000384022108, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
@@ -7422,7 +7400,7 @@ PrefabInstance:
     - target: {fileID: 4612455000417990713, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.128563
+      value: -22.080112
       objectReference: {fileID: 0}
     - target: {fileID: 4612455000417990713, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}

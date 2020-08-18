@@ -76,11 +76,11 @@ public class Pistol : MonoBehaviour, IGun
 
     public int CurrentAmmo { get; set; } = 2;
 
-    public Vector2 RecoilForceForward { get; } = new Vector2(50, 0);
+    public Vector2 RecoilForceForward { get; } = new Vector2(50, 0); // Recoil when shooting forward
 
-    public Vector2 RecoilForceDownward { get; } = new Vector2(0, 70);
+    public Vector2 RecoilForceDownward { get; } = new Vector2(0, 70); // Recoil when shooting downward
 
-    public Vector2 RecoilForceUpward { get; } = new Vector2(0, 100);
+    public Vector2 RecoilForceUpward { get; } = new Vector2(0, 100); // Recoil when shooting upward
 
     public RecoilType RecoilType { get; } = RecoilType.Gradual;
 

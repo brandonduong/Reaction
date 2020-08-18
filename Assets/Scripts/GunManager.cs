@@ -137,21 +137,21 @@ public class GunManager : MonoBehaviour
     {
         if (fireForward)
         {
-            ShootForward();
+            Shoot(transform.right, -transform.right, currentGun.RecoilForceForward);
             fireForward = false;
             controller.recentlyRecoiledBackwards = true;
         }
 
         else if (fireDownward)
         {
-            ShootDownward();
+            Shoot(Vector2.down, transform.up, currentGun.RecoilForceDownward);
             fireDownward = false;
             controller.recentlyRecoiledUpwards = true;
         }
 
         else if (fireUpward)
         {
-            ShootUpward();
+            Shoot(Vector2.up, -transform.up, currentGun.RecoilForceUpward);
             fireUpward = false;
             controller.recentlyRecoiledDownwards = true;
         }
@@ -162,61 +162,21 @@ public class GunManager : MonoBehaviour
         }
     }
 
-    void ShootForward()
+    private void Shoot(Vector2 bulletDir, Vector2 recoilDir, Vector2 recoilFor)
     {
         // Create bullet prefab + set up recoil function
         GameObject bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-        // Change diirection of bullet to down
-        bullet.GetComponent<Bullet>().direction = transform.right;
+        // Handle direction of bullet
+        bullet.GetComponent<Bullet>().direction = bulletDir;
+
+        // Set up recoil properties
         recoil = true;
-
-        // Recoil backward
-        recoilDirection = -transform.right;
-        recoilForce = currentGun.RecoilForceForward;
-        dampenedRecoil = recoilForce;
-
-        // Camera shake
-        GetComponent<CinemachineImpulseSource>().GenerateImpulse(currentGun.RecoilScreenShake);
-    }
-
-    void ShootDownward()
-    {
-        // Create bullet prefab + set up recoil function
-        GameObject bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-        // Change diirection of bullet to down
-        bullet.GetComponent<Bullet>().direction = Vector2.down;
-        recoil = true;
-
-        // Recoil backward
-        recoilDirection = transform.up;
-        
-        // Reset y velocity to be 0
-        rb.velocity = new Vector2(rb.velocity.x, 0); ;
-        recoilForce = currentGun.RecoilForceDownward;
-
-        dampenedRecoil = recoilForce;
-
-        // Camera shake
-        GetComponent<CinemachineImpulseSource>().GenerateImpulse(currentGun.RecoilScreenShake);
-    }
-
-    void ShootUpward()
-    {
-        // Create bullet prefab + set up recoil function
-        GameObject bullet = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-
-        // Change diirection of bullet to down
-        bullet.GetComponent<Bullet>().direction = Vector2.up;
-        recoil = true;
-
-        // Recoil backward
-        recoilDirection = -transform.up;
+        recoilDirection = recoilDir;
 
         // Reset y velocity to be 0
-        rb.velocity = new Vector2(rb.velocity.x, 0); ;
-        recoilForce = currentGun.RecoilForceUpward;
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        recoilForce = recoilFor;
 
         dampenedRecoil = recoilForce;
 
@@ -228,6 +188,7 @@ public class GunManager : MonoBehaviour
     {
         if (recoilCounter <= 0f)
         {
+            // Handle different recoil types
             switch (currentGun.RecoilType)
             {
                 case RecoilType.Gradual:
