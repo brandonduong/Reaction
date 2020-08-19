@@ -22,7 +22,7 @@ TagManager:
   - Environment
   - Player
   - CameraBoundary
-  - Trigger
+  - GameOverTrigger
   - Powerups
   - Bullets
   - 
