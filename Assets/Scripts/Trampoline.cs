@@ -41,7 +41,10 @@ public class Trampoline : MonoBehaviour
                 controller.onTrampoline = true;
 
                 // Ensure player can't bounce and shoot at the EXACT same time
-                player.GetComponent<GunManager>().currentGun.FireCounter = 0.1f;
+                if (player.GetComponent<GunManager>().currentGun != null)
+                {
+                    player.GetComponent<GunManager>().currentGun.FireCounter = 0.1f;
+                }
 
                 // Audio
                 AudioManager.instance.PlaySound("Trampoline");

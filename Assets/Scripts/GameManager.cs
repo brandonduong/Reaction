@@ -8,12 +8,6 @@ public class GameManager : MonoBehaviour
     private bool gameWin = true;
     private bool gameOver = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void NextLevel()
     {
         Debug.Log("Level won");
@@ -37,6 +31,9 @@ public class GameManager : MonoBehaviour
         if (!gameOver)
         {
             gameOver = true;
+
+            // Destroy player
+            Destroy(FindObjectOfType<PlayerController2D>().gameObject);
 
             // Audio
             AudioManager.instance.PlaySound("PlayerDeath");

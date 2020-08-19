@@ -4829,7 +4829,6 @@ GameObject:
   - component: {fileID: 8781320426937735282}
   - component: {fileID: 8781320426937735285}
   - component: {fileID: 8781320426937735286}
-  - component: {fileID: 8781320426937735287}
   - component: {fileID: 8781320426937735560}
   - component: {fileID: 1591540470}
   m_Layer: 10
@@ -5096,18 +5095,6 @@ MonoBehaviour:
   pickedupGun: -1
   gunPickupParticles: {fileID: 4517724737585944461, guid: 4f6712b1528c0e54ab39439c69288b8f,
     type: 3}
---- !u!114 &8781320426937735287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8781320426937735293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bb622b90e827744b866ac16d78eb8ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8781320426937735560
 MonoBehaviour:
   m_ObjectHideFlags: 0

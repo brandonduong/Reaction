@@ -9,18 +9,12 @@ public class GameOverTriggers : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
-    private void Update()
+    // Called whenever current objects collides with something (Needs a rigid boy + collider)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // If player falls below camera sight (down a hole), game over
-        if (gameObject.GetComponent<Rigidbody2D>().position.y < -8.55f)
+        if (collision.CompareTag("Player"))
         {
             gameManager.EndGame();
         }
-    }
-
-    // Called whenever current objects collides with something (Needs a rigid boy + collider)
-    void OnCollisionEnter(Collision collision)
-    {
-
     }
 }

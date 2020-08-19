@@ -20,9 +20,6 @@ public class Spikes : MonoBehaviour
             // Create effect + reference
             GameObject effect = (GameObject)Instantiate(breakEffect, player.GetComponent<Rigidbody2D>().position, transform.rotation);
 
-            // Destroy player
-            Destroy(player.gameObject);
-
             // Destroy effect
             Destroy(effect, 1);
 
