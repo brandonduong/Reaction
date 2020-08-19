@@ -21,11 +21,11 @@ public class GunPickup : MonoBehaviour
             switch (gun)
             {
                 case (GunType.Pistol):
-                    gunManager.pistolAvailable = true;
+                    gunManager.pickedupGun = GunType.Pistol;
                     break;
 
                 case (GunType.Deagle):
-                    gunManager.deagleAvailable = true;
+                    gunManager.pickedupGun = GunType.Deagle;
                     break;
             }
 

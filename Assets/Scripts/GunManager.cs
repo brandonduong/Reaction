@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum GunType
 {
+    None = -1,
     Pistol,
     Deagle
 }
@@ -50,8 +51,8 @@ public class GunManager : MonoBehaviour
 
     // Controls whether or not these guns are in the player's possesion
     [SerializeField] public bool updateGuns = false;
-    public bool pistolAvailable = false;
-    public bool deagleAvailable = false;
+    public GunType pickedupGun = GunType.None;
+    public GameObject gunPickupParticles;
 
     private void Start()
     {
@@ -78,7 +79,7 @@ public class GunManager : MonoBehaviour
         }
 
         // If gun can fire
-        if (currentGun !=  null && currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0)
+        if (currentGun != null && currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0)
         {
             // Whenever fire button is pressed
             if (Input.GetButtonDown("Fire1"))
@@ -314,9 +315,17 @@ public class GunManager : MonoBehaviour
         controller.recentlyShot = false;
     }
 
-    private void SwitchGuns()
+    private void SwitchGuns(int equip = -1)
     {
-        // Cycle to next gun
+        // To specify which gun to equip
+        if (equip > -1)
+        {
+            gunType = (GunType)equip;
+            currentGun = guns[equip];
+            return;
+        }
+
+        // If none specified, cycle to next gun
         gunType += 1;
 
         // Reset cycle if 
@@ -326,7 +335,7 @@ public class GunManager : MonoBehaviour
         }
 
         // Equip next gun in cycle if there are guns in loadout
-        if (guns.Count > 0)
+        if (guns.Count > 0 && equip == -1)
         {
             currentGun = guns[(int)gunType];
         }
@@ -335,20 +344,61 @@ public class GunManager : MonoBehaviour
     public void CheckGuns()
     {
         updateGuns = false;
+        string droppedGun = "";
 
         // Add weapons to player loadout
-        if (pistolAvailable)
+        if (pickedupGun == GunType.Pistol)
         {
-            gameObject.AddComponent<Pistol>();
-            guns.Add(gameObject.GetComponent<Pistol>());
+            // Throw out old version and pick up new
+            if (GetComponent<Pistol>() != null)
+            {
+                guns[(int)pickedupGun].CurrentAmmo = guns[(int)pickedupGun].MaxAmmo;
+
+                droppedGun = "Pistol";
+            }
+
+            // Add to inventory
+            else
+            {
+                gameObject.AddComponent<Pistol>();
+                guns.Insert((int)pickedupGun, GetComponent<Pistol>());
+            }
         }
-        if (deagleAvailable)
+
+        if (pickedupGun == GunType.Deagle)
         {
-            gameObject.AddComponent<Deagle>();
-            guns.Add(gameObject.GetComponent<Deagle>());
+            // Throw out old version and pick up new
+            if (GetComponent<Deagle>() != null)
+            {
+                guns[(int)pickedupGun].CurrentAmmo = guns[(int)pickedupGun].MaxAmmo;
+
+                droppedGun = "Deagle";
+            }
+
+            // Add to inventory
+            else
+            {
+                gameObject.AddComponent<Deagle>();
+                guns.Insert((int)pickedupGun, GetComponent<Deagle>());
+            }
         }
 
         // Equip new gun
-        SwitchGuns();
+        SwitchGuns((int)pickedupGun);
+
+        if (pickedupGun != GunType.None)
+        {
+            currentGun.FireCounter = 0;
+        }
+
+        if (droppedGun.Length > 0)
+        {
+            // Particles
+            GameObject particles = Instantiate(gunPickupParticles, transform.position, transform.rotation);
+            particles.GetComponent<ParticleSystem>().textureSheetAnimation.RemoveSprite(0);
+            particles.GetComponent<ParticleSystem>().textureSheetAnimation.AddSprite(Resources.Load<Sprite>(droppedGun));
+        }
+
+        pickedupGun = GunType.None;
     }
 }
