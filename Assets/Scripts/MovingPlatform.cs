@@ -6,6 +6,7 @@ public class MovingPlatform : MonoBehaviour
 {
     public Transform[] points;
     public float speed;
+    public bool waitForPlayer = false;
 
     private Vector3 nextPoint;
     private bool forwards = true;
@@ -25,10 +26,14 @@ public class MovingPlatform : MonoBehaviour
             if (transform.position == points[i].position)
             {
                 // If reach end of path, go backwards
-                if ((i == points.Length - 1) || (i == 0))
+                if ((i == points.Length - 1))
                 {
                     // Debug.Log("switch direction");
-                    forwards = !forwards;
+                    forwards = false;
+                }
+                else if (i == 0)
+                {
+                    forwards = true;
                 }
 
                 if (forwards)
@@ -41,7 +46,11 @@ public class MovingPlatform : MonoBehaviour
                 }
             }
         }
-        transform.position = Vector3.MoveTowards(transform.position, nextPoint, speed * Time.deltaTime);
+
+        if (!waitForPlayer)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, nextPoint, speed * Time.deltaTime);
+        }
     }
 
     private void OnDrawGizmos()
@@ -49,6 +58,14 @@ public class MovingPlatform : MonoBehaviour
         for (int i = 0; i < points.Length - 1; i++)
         {
             Gizmos.DrawLine(points[i].position, points[i + 1].position);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            waitForPlayer = false;
         }
     }
 }

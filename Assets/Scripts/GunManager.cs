@@ -48,17 +48,26 @@ public class GunManager : MonoBehaviour
 
     private bool reloadAvailable = false; // True if player lands on ground after shooting
 
+    // Controls whether or not these guns are in the player's possesion
+    public bool pistolAvailable = false;
+    public bool deagleAvailable = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         controller = GetComponent<PlayerController2D>();
 
         // Add weapons to player loadout
-        gameObject.AddComponent<Pistol>();
-        gameObject.AddComponent<Deagle>();
-
-        guns.Add(gameObject.GetComponent<Pistol>());
-        guns.Add(gameObject.GetComponent<Deagle>());
+        if (pistolAvailable)
+        {
+            gameObject.AddComponent<Pistol>();
+            guns.Add(gameObject.GetComponent<Pistol>());
+        }
+        if (deagleAvailable)
+        {
+            gameObject.AddComponent<Deagle>();
+            guns.Add(gameObject.GetComponent<Deagle>());
+        }
 
         // Set default gun
         gunType = startingGun;
@@ -310,7 +319,7 @@ public class GunManager : MonoBehaviour
         gunType += 1;
 
         // Reset cycle if 
-        if ((int)gunType > (Enum.GetNames(typeof(GunType)).Length - 1))
+        if ((int)gunType > (guns.Count - 1))
         {
             gunType = 0;
         }

@@ -46,12 +46,12 @@ MonoBehaviour:
   sounds:
   - name: PistolGunShot
     clip: {fileID: 8300000, guid: d126751558dfd374baa24b785329983d, type: 3}
-    volume: 0.75
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   - name: DeagleGunShot
     clip: {fileID: 8300000, guid: e9673d4829a4d4448b2636828bb9ecc5, type: 3}
-    volume: 0.75
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   - name: BulletCollision
