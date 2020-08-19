@@ -49,6 +49,7 @@ public class GunManager : MonoBehaviour
     private bool reloadAvailable = false; // True if player lands on ground after shooting
 
     // Controls whether or not these guns are in the player's possesion
+    [SerializeField] public bool updateGuns = false;
     public bool pistolAvailable = false;
     public bool deagleAvailable = false;
 
@@ -58,20 +59,14 @@ public class GunManager : MonoBehaviour
         controller = GetComponent<PlayerController2D>();
 
         // Add weapons to player loadout
-        if (pistolAvailable)
-        {
-            gameObject.AddComponent<Pistol>();
-            guns.Add(gameObject.GetComponent<Pistol>());
-        }
-        if (deagleAvailable)
-        {
-            gameObject.AddComponent<Deagle>();
-            guns.Add(gameObject.GetComponent<Deagle>());
-        }
+        CheckGuns();
 
         // Set default gun
-        gunType = startingGun;
-        currentGun = guns[(int)gunType];
+        if (guns.Count > 0)
+        {
+            gunType = startingGun;
+            currentGun = guns[(int)gunType];
+        }
     }
 
     // Update is called once per frame
@@ -83,7 +78,7 @@ public class GunManager : MonoBehaviour
         }
 
         // If gun can fire
-        if (currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0)
+        if (currentGun !=  null && currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0)
         {
             // Whenever fire button is pressed
             if (Input.GetButtonDown("Fire1"))
@@ -144,6 +139,12 @@ public class GunManager : MonoBehaviour
         if (reloadAvailable)
         {
             Reload();
+        }
+
+        // If gun has been picked up
+        if (updateGuns)
+        {
+            CheckGuns();
         }
     }
 
@@ -324,7 +325,30 @@ public class GunManager : MonoBehaviour
             gunType = 0;
         }
 
-        // Equip next gun in cycle
-        currentGun = guns[(int)gunType];
+        // Equip next gun in cycle if there are guns in loadout
+        if (guns.Count > 0)
+        {
+            currentGun = guns[(int)gunType];
+        }
+    }
+
+    public void CheckGuns()
+    {
+        updateGuns = false;
+
+        // Add weapons to player loadout
+        if (pistolAvailable)
+        {
+            gameObject.AddComponent<Pistol>();
+            guns.Add(gameObject.GetComponent<Pistol>());
+        }
+        if (deagleAvailable)
+        {
+            gameObject.AddComponent<Deagle>();
+            guns.Add(gameObject.GetComponent<Deagle>());
+        }
+
+        // Equip new gun
+        SwitchGuns();
     }
 }

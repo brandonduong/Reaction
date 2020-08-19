@@ -17,7 +17,14 @@ public class GunNameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get name of current gun
-        gunNameText.text = gunManager.currentGun.GetType().Name;
+        if (gunManager.currentGun != null)
+        {
+            // Get name of current gun
+            gunNameText.text = gunManager.currentGun.GetType().Name;
+        }
+        else
+        {
+            gunNameText.text = "";
+        }
     }
 }
