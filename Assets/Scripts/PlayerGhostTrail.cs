@@ -19,6 +19,12 @@ public class PlayerGhostTrail : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
 
         player = FindObjectOfType<PlayerMovement>();
+
+        if (player == null)
+        {
+            return;
+        }
+
         transform.position = player.transform.position;
         transform.localScale = player.transform.localScale;
 
