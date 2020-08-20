@@ -12,13 +12,28 @@ public class ShootableButton : MonoBehaviour
         {
             // Toggle all colliders
             Collider2D[] colliders = target.GetComponents<Collider2D>();
+
             for (int i = 0; i < colliders.Length; i++)
             {
                 colliders[i].enabled = !colliders[i].enabled;
             }
 
             // Toggle sprite
-            target.GetComponent<SpriteRenderer>().enabled = !target.GetComponent<SpriteRenderer>().enabled;
+            if (target.GetComponent<SpriteRenderer>() != null)
+            {
+                target.GetComponent<SpriteRenderer>().enabled = !target.GetComponent<SpriteRenderer>().enabled;
+            }
+
+            // Or toggle sprites
+            else
+            {
+                SpriteRenderer[] sprites = target.GetComponentsInChildren<SpriteRenderer>();
+
+                for (int i = 0; i < sprites.Length; i++)
+                {
+                    sprites[i].enabled = !sprites[i].enabled;
+                }
+            }
         }
     }
 }

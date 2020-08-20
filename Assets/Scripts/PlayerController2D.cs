@@ -12,7 +12,6 @@ public class PlayerController2D: MonoBehaviour
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
     [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
-
     public float fallMultiplier = 2.5f; // How much to multiply gravity by when character is falling down after a jump 
     public float lowJumpMultiplier = 2.5f; // When player taps jump button instead of holds jump
 
@@ -75,7 +74,10 @@ public class PlayerController2D: MonoBehaviour
                 // Debug.Log(colliders[i].gameObject.ToString() + "grounded the player.");
                 m_Grounded = true;
                 if (!wasGrounded)
+                {
                     OnLandEvent.Invoke();
+                }
+                    
 
                 // If player is on a moving platform, have player move with it!
                 if (colliders[i].gameObject.tag == "MovingPlatform")
