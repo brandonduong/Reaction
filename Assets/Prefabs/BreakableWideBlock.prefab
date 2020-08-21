@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5285678862141026153}
   - component: {fileID: 5285678862141026151}
   - component: {fileID: 5285678862141026148}
+  - component: {fileID: 283929878081363876}
   m_Layer: 0
   m_Name: BreakableWideBlock
   m_TagString: Untagged
@@ -96,6 +97,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  breakEffect: {fileID: 3097544244068058639, guid: 3a9455bcd63d4f44c95d2fe206345ddf,
+    type: 3}
+--- !u!114 &283929878081363876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285678862141026149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f803403e528e8488505149222672bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   breakEffect: {fileID: 3097544244068058639, guid: 3a9455bcd63d4f44c95d2fe206345ddf,
     type: 3}
 --- !u!1 &5285678862239583604

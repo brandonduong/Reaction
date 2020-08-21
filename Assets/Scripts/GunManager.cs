@@ -155,6 +155,7 @@ public class GunManager : MonoBehaviour
         {
             Shoot(transform.right, -transform.right, currentGun.RecoilForceForward);
             fireForward = false;
+            GetComponent<PlayerMovement>().ResetRecentlyRecoiled();
             controller.recentlyRecoiledBackwards = true;
         }
 
@@ -162,6 +163,7 @@ public class GunManager : MonoBehaviour
         {
             Shoot(Vector2.down, transform.up, currentGun.RecoilForceDownward);
             fireDownward = false;
+            GetComponent<PlayerMovement>().ResetRecentlyRecoiled();
             controller.recentlyRecoiledUpwards = true;
         }
 
@@ -169,6 +171,7 @@ public class GunManager : MonoBehaviour
         {
             Shoot(Vector2.up, -transform.up, currentGun.RecoilForceUpward);
             fireUpward = false;
+            GetComponent<PlayerMovement>().ResetRecentlyRecoiled();
             controller.recentlyRecoiledDownwards = true;
         }
 

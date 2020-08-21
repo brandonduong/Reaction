@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isCrouching", isCrouching);
     }
 
-    private void ResetRecentlyRecoiled()
+    public void ResetRecentlyRecoiled()
     {
         controller.recentlyRecoiledDownwards = false;
         controller.recentlyRecoiledUpwards = false;

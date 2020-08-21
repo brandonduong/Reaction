@@ -29,6 +29,8 @@ public class Breakthroughable : MonoBehaviour
 
             else if (playerRB.position.x >= transform.position.x - halfWidth && playerRB.position.x <= transform.position.x + halfWidth)
             {
+                // Debug.Log(controller.recentlyRecoiledDownwards);
+                // Debug.Log(playerRB.position.y >= transform.position.y);
                 // Break from top
                 if (controller.recentlyRecoiledDownwards && playerRB.position.y >= transform.position.y)
                 {
