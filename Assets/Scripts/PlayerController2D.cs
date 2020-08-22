@@ -179,8 +179,8 @@ public class PlayerController2D: MonoBehaviour
         {
             // Add a vertical force to the player.
             // m_Grounded = false;
-            // m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-            m_Rigidbody2D.velocity = Vector2.up * m_JumpForce;
+            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce)); // jumpforce = 750
+            // m_Rigidbody2D.velocity = Vector2.up * m_JumpForce; // jumpforce = 28
 
             // Audio
             AudioManager.instance.PlaySound("PlayerJump");
