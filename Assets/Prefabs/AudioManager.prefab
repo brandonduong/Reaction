@@ -39,13 +39,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8962123729191151015}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc0b04c7b3d613840b9f0d035216fb29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   randomPlay: 0
   clips:
+  - {fileID: 8300000, guid: 9dfea49ae420ebb40aee548d495812f2, type: 3}
   - {fileID: 8300000, guid: 494a20e5b26c76041ae6a74ddb45d86d, type: 3}
 --- !u!82 &5432747741402753710
 AudioSource:
