@@ -4,34 +4,40 @@ using UnityEngine;
 
 public class ShootableButton : MonoBehaviour
 {
-    public GameObject target;
+    public GameObject[] targets;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet" && target)
+        if (collision.gameObject.tag == "Bullet")
         {
-            // Toggle all colliders
-            Collider2D[] colliders = target.GetComponents<Collider2D>();
-
-            for (int i = 0; i < colliders.Length; i++)
+            foreach (GameObject target in targets)
             {
-                colliders[i].enabled = !colliders[i].enabled;
-            }
-
-            // Toggle sprite
-            if (target.GetComponent<SpriteRenderer>() != null)
-            {
-                target.GetComponent<SpriteRenderer>().enabled = !target.GetComponent<SpriteRenderer>().enabled;
-            }
-
-            // Or toggle sprites
-            else
-            {
-                SpriteRenderer[] sprites = target.GetComponentsInChildren<SpriteRenderer>();
-
-                for (int i = 0; i < sprites.Length; i++)
+                if (target)
                 {
-                    sprites[i].enabled = !sprites[i].enabled;
+                    // Toggle all colliders
+                    Collider2D[] colliders = target.GetComponents<Collider2D>();
+
+                    for (int i = 0; i < colliders.Length; i++)
+                    {
+                        colliders[i].enabled = !colliders[i].enabled;
+                    }
+
+                    // Toggle sprite
+                    if (target.GetComponent<SpriteRenderer>() != null)
+                    {
+                        target.GetComponent<SpriteRenderer>().enabled = !target.GetComponent<SpriteRenderer>().enabled;
+                    }
+
+                    // Or toggle sprites
+                    else
+                    {
+                        SpriteRenderer[] sprites = target.GetComponentsInChildren<SpriteRenderer>();
+
+                        for (int i = 0; i < sprites.Length; i++)
+                        {
+                            sprites[i].enabled = !sprites[i].enabled;
+                        }
+                    }
                 }
             }
         }
