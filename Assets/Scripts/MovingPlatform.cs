@@ -85,6 +85,17 @@ public class MovingPlatform : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             waitForPlayer = false;
+
+            player.GetComponent<Transform>().parent = gameObject.transform;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        // Start if player on platform
+        if (collision.gameObject.tag == "Player")
+        {
+            player.GetComponent<Transform>().parent = null;
         }
     }
 }

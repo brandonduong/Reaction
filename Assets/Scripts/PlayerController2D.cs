@@ -60,7 +60,7 @@ public class PlayerController2D: MonoBehaviour
         m_Grounded = false;
 
         // Resets players transform if not on a moving platform
-        GetComponent<Transform>().parent = null;
+        // GetComponent<Transform>().parent = null;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -80,10 +80,11 @@ public class PlayerController2D: MonoBehaviour
                     
 
                 // If player is on a moving platform, have player move with it!
+                /* 
                 if (colliders[i].gameObject.tag == "MovingPlatform")
                 {
                     GetComponent<Transform>().parent = colliders[i].gameObject.transform;
-                }
+                }*/
             }
         }
 
@@ -153,13 +154,6 @@ public class PlayerController2D: MonoBehaviour
             // And then smoothing it out and applying it to the character
             m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-            // On ice physics
-            /*
-            else
-            {
-                m_Rigidbody2D.AddForce(new Vector2((move * 10f) + recoil.x, m_Rigidbody2D.velocity.y + recoil.y));
-            }*/
-
             // If the input is moving the player right and the player is facing left...
             if (move > 0 && !m_FacingRight)
             {
@@ -179,8 +173,10 @@ public class PlayerController2D: MonoBehaviour
         {
             // Add a vertical force to the player.
             // m_Grounded = false;
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce)); // jumpforce = 750
+            // m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce)); // jumpforce = 750
             // m_Rigidbody2D.velocity = Vector2.up * m_JumpForce; // jumpforce = 28
+            Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, 0);
 
             // Audio
             AudioManager.instance.PlaySound("PlayerJump");

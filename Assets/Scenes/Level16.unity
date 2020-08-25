@@ -10684,6 +10684,11 @@ PrefabInstance:
       propertyPath: stopAtEnd
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2705584208653342433, guid: 33c2520c865e87c45a57031de1daeac3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1701318860}
     - target: {fileID: 2705584208653342435, guid: 33c2520c865e87c45a57031de1daeac3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11547,7 +11552,7 @@ PrefabInstance:
     - target: {fileID: 4612455000417990713, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.176712
+      value: -41.45123
       objectReference: {fileID: 0}
     - target: {fileID: 4612455000417990713, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
