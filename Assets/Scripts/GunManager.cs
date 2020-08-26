@@ -73,13 +73,13 @@ public class GunManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetButtonDown("SwitchGuns"))
+        if (Input.GetButtonDown("SwitchGuns") && !Pause.isPaused)
         {
             SwitchGuns();
         }
 
         // If gun can fire
-        if (currentGun != null && currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0)
+        if (currentGun != null && currentGun.FireCounter <= 0f && currentGun.CurrentAmmo > 0 && !Pause.isPaused)
         {
             // Whenever fire button is pressed
             if (Input.GetButtonDown("Fire1"))

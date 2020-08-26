@@ -18,31 +18,33 @@ public class PlayerMovement : MonoBehaviour
 
         // Handle animation for running
         animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
-
-        if (Input.GetButtonDown("Jump"))
+        if (!Pause.isPaused)
         {
-            jump = true;
-
-            // Handle animation for jumping
-            if (!animator.GetBool("isCrouching"))
+            if (Input.GetButtonDown("Jump"))
             {
-                animator.SetBool("isJumping", true);
+                jump = true;
+
+                // Handle animation for jumping
+                if (!animator.GetBool("isCrouching"))
+                {
+                    animator.SetBool("isJumping", true);
+                }
             }
-        }
 
-        else if (Input.GetButtonUp("Jump"))
-        {
-            jump = false;
-        }
+            else if (Input.GetButtonUp("Jump"))
+            {
+                jump = false;
+            }
 
-        if (Input.GetButtonDown("Crouch"))
-        {
-            crouch = true;
-        }
+            if (Input.GetButtonDown("Crouch"))
+            {
+                crouch = true;
+            }
 
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            crouch = false;
+            else if (Input.GetButtonUp("Crouch"))
+            {
+                crouch = false;
+            }
         }
     }
 
