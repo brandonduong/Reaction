@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomPlay: 0
   clips:
+  - {fileID: 8300000, guid: fe68df5024e399042908c0a81ba6f665, type: 3}
   - {fileID: 8300000, guid: 9dfea49ae420ebb40aee548d495812f2, type: 3}
   - {fileID: 8300000, guid: 494a20e5b26c76041ae6a74ddb45d86d, type: 3}
 --- !u!82 &5432747741402753710
