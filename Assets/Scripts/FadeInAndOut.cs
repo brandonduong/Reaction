@@ -30,6 +30,7 @@ public class FadeInAndOut : MonoBehaviour
     {
         if (sceneToLoad.Length > 0)
         {
+            Debug.Log($"Fading to {sceneToLoad}");
             SceneManager.LoadScene(sceneToLoad);
         }
         else
