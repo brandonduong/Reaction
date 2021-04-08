@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 jump = true;
-
+                controller.Move(0, false, true);
                 // Handle animation for jumping
                 if (!animator.GetBool("isCrouching"))
                 {
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Time.fixedDeltaTime ensures speed is consistent across all fps
-        controller.Move(horizontalMovement * Time.fixedDeltaTime, crouch, jump);
+        controller.Move(horizontalMovement * Time.fixedDeltaTime, crouch, false);
     }
 
     // Called when player lands on ground after being in the air

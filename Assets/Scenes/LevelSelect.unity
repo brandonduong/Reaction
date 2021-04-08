@@ -945,7 +945,7 @@ MonoBehaviour:
   levelIcon: {fileID: 7464058882707740443, guid: 315cab6a678d1884fa47b8cf4270243f,
     type: 3}
   thisCanvas: {fileID: 866866754}
-  numberOfLevels: 21
+  numberOfLevels: 25
   iconSpacing: {x: 90, y: 150}
 --- !u!4 &2052181367
 Transform:

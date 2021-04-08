@@ -215,7 +215,7 @@ public class GunManager : MonoBehaviour
         // Create ghost effect of player
         for (int i = 0; i < numGhosts; i++)
         {
-            Invoke(nameof(GhostEffects), i * timeBetweenGhosts);
+            Invoke(nameof(GhostEffects), i * timeBetweenGhosts * Time.fixedDeltaTime);
         }
     }
 

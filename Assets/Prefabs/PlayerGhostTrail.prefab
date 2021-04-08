@@ -94,5 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e612b507d4dcaac4385444f90f1f980b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alphaDecay: 0.0025
+  alphaDecay: 0.75
   ghostColour: {x: 255, y: 0, z: 100, w: 0.4}

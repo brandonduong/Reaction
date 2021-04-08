@@ -90,6 +90,7 @@ public class PlayerController2D: MonoBehaviour
 
         // Handles better jumping
         // Increase gravity if player is falling
+        
         if (m_Rigidbody2D.velocity.y < 0)
         {
             m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime; 
@@ -171,15 +172,16 @@ public class PlayerController2D: MonoBehaviour
         // If the player should jump...
         if (m_Grounded && jump && !m_wasCrouching)
         {
-            // Add a vertical force to the player.
-            // m_Grounded = false;
-            // m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce)); // jumpforce = 750
-            // m_Rigidbody2D.velocity = Vector2.up * m_JumpForce; // jumpforce = 28
-            Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
-            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, 0);
-
             // Audio
             AudioManager.instance.PlaySound("PlayerJump");
+
+            // Add a vertical force to the player.
+            // m_Grounded = false;
+            //m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce)); // jumpforce = 750
+            m_Rigidbody2D.velocity = Vector2.up * m_JumpForce; // jumpforce = 28
+            //Vector3 targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
+            //m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, 0);
+            //m_Rigidbody2D.velocity = targetVelocity;
         }
     }
 

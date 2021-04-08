@@ -58,12 +58,17 @@ public class Pause : MonoBehaviour
 
     public void MainMenu()
     {
+        instance.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
         SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
+        instance.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
         FindObjectOfType<FadeInAndOut>().FadeToScene("");
         Debug.Log("Quit Game.");
         Application.Quit();

@@ -4920,7 +4920,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012206078, y: -0.009169042}
+  m_Offset: {x: -0.0125, y: -0.009169042}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4982,7 +4982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec47ea161fca8034d8a8380a642459a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 28
+  m_JumpForce: 29
   m_CrouchSpeed: 0.5
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -5087,7 +5087,7 @@ MonoBehaviour:
   playerGhostPrefab: {fileID: 3072902753352736260, guid: 4266f48c1d60c0849adc55f7d25ae669,
     type: 3}
   numGhosts: 3
-  timeBetweenGhosts: 0.1
+  timeBetweenGhosts: 6
   startingGun: 0
   gunType: 0
   recoilTime: 5
@@ -5163,7 +5163,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012500763, y: -1.1235623}
+  m_Offset: {x: -0.0125, y: -1.1235623}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5174,7 +5174,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.69944763, y: 0.7444525}
+  m_Size: {x: 0.693, y: 0.7444525}
   m_EdgeRadius: 0
 --- !u!1 &8781320427305138103
 GameObject:

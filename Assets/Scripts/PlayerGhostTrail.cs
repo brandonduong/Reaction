@@ -41,7 +41,7 @@ public class PlayerGhostTrail : MonoBehaviour
     void Update()
     {
         sprite.color = ghostColour;
-        ghostColour -= new Vector4(0, 0, 0, alphaDecay);
+        ghostColour -= new Vector4(0, 0, 0, alphaDecay * Time.deltaTime);
 
         if (sprite.color.a <= 0)
         {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    public FadeInAndOut fadeManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +14,12 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         // Load next scene in queue
-        FindObjectOfType<FadeInAndOut>().FadeToScene("LevelSelect");
+        fadeManager.FadeToScene("LevelSelect");
     }
 
     public void QuitGame()
     {
-        FindObjectOfType<FadeInAndOut>().FadeToScene("");
+        fadeManager.FadeToScene("");
         Debug.Log("Quit Game.");
         Application.Quit();
     }
