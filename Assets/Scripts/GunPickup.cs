@@ -27,6 +27,10 @@ public class GunPickup : MonoBehaviour
                 case (GunType.Deagle):
                     gunManager.pickedupGun = GunType.Deagle;
                     break;
+
+                case (GunType.TeleGun):
+                    gunManager.pickedupGun = GunType.TeleGun;
+                    break;
             }
 
             // Update guns

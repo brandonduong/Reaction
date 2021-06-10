@@ -4,8 +4,21 @@ public class Guns : MonoBehaviour
 {
 }
 
+public enum GunType
+{
+    None = -1,
+    Pistol,
+    Deagle,
+    TeleGun
+}
+
 public interface IGun
 {
+    GunType Type
+    {
+        get;
+    }
+
     float FireRate
     {
         get;
@@ -71,6 +84,8 @@ public interface IGun
 
 public class Pistol : MonoBehaviour, IGun
 {
+    public GunType Type { get; } = GunType.Pistol;
+
     public float FireRate { get; } = 5f;
 
     public int MaxAmmo { get; } = 2;
@@ -98,6 +113,8 @@ public class Pistol : MonoBehaviour, IGun
 
 public class Deagle : MonoBehaviour, IGun
 {
+    public GunType Type { get; } = GunType.Deagle;
+
     public float FireRate { get; } = 1f;
 
     public int MaxAmmo { get; } = 1;
@@ -121,4 +138,33 @@ public class Deagle : MonoBehaviour, IGun
     public float FireCounter { get; set; } = 0f;
 
     public string ShotSound { get; } = "DeagleGunShot"; // Name of the audio file to play when shot
+}
+
+public class TeleGun : MonoBehaviour, IGun
+{
+    public GunType Type { get; } = GunType.TeleGun;
+
+    public float FireRate { get; } = 1f;
+
+    public int MaxAmmo { get; } = 1;
+
+    public int BulletDamage { get; } = 0;
+
+    public float BulletSpeed { get; } = 15f;
+
+    public int CurrentAmmo { get; set; } = 1;
+
+    public Vector2 RecoilForceForward { get; } = new Vector2(75, 0); // new Vector2(5000, 0);
+
+    public Vector2 RecoilForceDownward { get; } = new Vector2(0, 105); // new Vector2(0, 1400);
+
+    public Vector2 RecoilForceUpward { get; } = new Vector2(0, 150); // new Vector2(0, 3000);
+
+    public RecoilType RecoilType { get; } = RecoilType.Gradual; // RecoilType.Static;
+
+    public float RecoilScreenShake { get; } = 1f;
+
+    public float FireCounter { get; set; } = 0f;
+
+    public string ShotSound { get; } = "TeleGunShot"; // Name of the audio file to play when shot
 }

@@ -18,6 +18,7 @@ public class MovingPlatform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<PlayerController2D>().gameObject;
         nextPoint = points[0].position;
     }
 

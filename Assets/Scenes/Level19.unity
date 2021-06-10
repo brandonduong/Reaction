@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -10844,6 +10844,8 @@ GameObject:
   - component: {fileID: 305353328}
   - component: {fileID: 305353330}
   - component: {fileID: 305353331}
+  - component: {fileID: 305353333}
+  - component: {fileID: 305353332}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -11497,7 +11499,7 @@ TilemapCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -11518,6 +11520,49 @@ MonoBehaviour:
   breakEffect: {fileID: 3097544244068058639, guid: 3a9455bcd63d4f44c95d2fe206345ddf,
     type: 3}
   player: {fileID: 1701318860}
+--- !u!66 &305353332
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305353326}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+--- !u!50 &305353333
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305353326}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &327851708
 GameObject:
   m_ObjectHideFlags: 0
@@ -15505,12 +15550,12 @@ PrefabInstance:
     - target: {fileID: 4612455000384022108, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.882908
+      value: -23.61741
       objectReference: {fileID: 0}
     - target: {fileID: 4612455000384022108, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4578252
+      value: 3.4578233
       objectReference: {fileID: 0}
     - target: {fileID: 4612455000384022178, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
@@ -15540,7 +15585,7 @@ PrefabInstance:
     - target: {fileID: 4612455000417990713, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.176712
+      value: -39.450165
       objectReference: {fileID: 0}
     - target: {fileID: 4612455000417990713, guid: b42f81bca9435fc45bc5ee73128b8c45,
         type: 3}

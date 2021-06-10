@@ -32,4 +32,13 @@ public class Breakable : MonoBehaviour
         // Destroy effect
         Destroy(effect, 1);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Debug.Log("hit");
+            TakeDamage(collision.gameObject.GetComponent<Bullet>().damage);
+        }
+    }
 }

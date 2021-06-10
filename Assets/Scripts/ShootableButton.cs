@@ -6,9 +6,9 @@ public class ShootableButton : MonoBehaviour
 {
     public GameObject[] targets;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             foreach (GameObject target in targets)
             {

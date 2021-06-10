@@ -4,13 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GunType
-{
-    None = -1,
-    Pistol,
-    Deagle
-}
-
 public enum RecoilType
 {
     Gradual,
@@ -368,7 +361,7 @@ public class GunManager : MonoBehaviour
             }
         }
 
-        if (pickedupGun == GunType.Deagle)
+        else if (pickedupGun == GunType.Deagle)
         {
             // Throw out old version and pick up new
             if (GetComponent<Deagle>() != null)
@@ -383,6 +376,24 @@ public class GunManager : MonoBehaviour
             {
                 gameObject.AddComponent<Deagle>();
                 guns.Insert((int)pickedupGun, GetComponent<Deagle>());
+            }
+        }
+
+        else if (pickedupGun == GunType.TeleGun)
+        {
+            // Throw out old version and pick up new
+            if (GetComponent<TeleGun>() != null)
+            {
+                guns[(int)pickedupGun].CurrentAmmo = guns[(int)pickedupGun].MaxAmmo;
+
+                droppedGun = "TeleGun";
+            }
+
+            // Add to inventory
+            else
+            {
+                gameObject.AddComponent<TeleGun>();
+                guns.Insert((int)pickedupGun, GetComponent<TeleGun>());
             }
         }
 
